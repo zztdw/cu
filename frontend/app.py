@@ -3,12 +3,10 @@
 
 from flask import Flask, jsonify, request
 from flask import render_template, redirect, make_response
-from flask_cors import CORS
 import requests
 import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
-CORS(app)
 centerIndex = -1 # the center of map, it's ID of cafeteria, map will center on this cafeteria, if it's -1, center on Madison
 proxy = "http://127.0.0.1:8080/priorityqueue" # backend API route
 
