@@ -18,7 +18,7 @@ class Cafeteria:
         self.hours_open = open_time.strftime("%H:%M:%S")
         self.hours_closed = close_time.strftime("%H:%M:%S")
         # default status decided by open, close and current time
-        self.status = "open" if curr > open_time and curr < close_time else "Closed"
+        self.status = "Open" if curr > open_time and curr < close_time else "Closed"
         # real status from json
         if(info.get("status")=='Open' or info.get("status") == "Closed"):
             self.status = info.get("status")
@@ -39,6 +39,7 @@ sett = Cafeteria({
     "hours_open" : "11:00:00",
     "hours_closed" : "23:30:00",
     "wait_times" : "> 20 min",
+    "status" : "Open",
     "type" : "Fast Food",
     "coords_lat" : "43.071328653947916",
     "coords_lon" : "-89.4077521876059",
@@ -50,6 +51,7 @@ gordon = Cafeteria({
     "address" : "770 W Dayton St, Madison, WI 53706",
     "hours_open" : "09:00:00",
     "hours_closed" : "23:30:00",
+    "status" : "Open",
     "wait_times" : "5 - 15 min",
     "type" : "Dining",
     "coords_lat" : "43.07125867881556",
@@ -62,6 +64,7 @@ capital = Cafeteria({
     "address" : "975 University Ave, Madison, WI 53715",
     "hours_open" : "08:00:00",
     "hours_closed" : "23:30:00",
+    "status" : "Open",
     "wait_times" : "< 5 min",
     "type" : "Cafe",
     "coords_lat" : "43.072379022579604",

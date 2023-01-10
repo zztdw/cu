@@ -8,7 +8,7 @@ import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
 centerIndex = -1 # the center of map, it's ID of cafeteria, map will center on this cafeteria, if it's -1, center on Madison
-proxy = "http://127.0.0.1:8080/priorityqueue" # backend API route
+proxy = "http://127.0.0.1:8080" # backend API route
 
 # fetch data from backend, create a list of cafeteria object from it
 # return: list of Cafeteria object
@@ -54,9 +54,9 @@ def table():
         elif c.type == "Fast Food":
             fasts.append(c)
     type_dict = {
-        "Fast Food" : fasts,
-        "Cafe"      : cafes,
-        "Dining Hall":dinings
+        "快餐" : fasts,
+        "咖啡厅"      : cafes,
+        "食堂":dinings
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
