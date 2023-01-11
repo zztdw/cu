@@ -1,15 +1,16 @@
 # This is a tiny flask app to test the RESTful API for Map.
 
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, flash, url_for
 from flask import render_template, redirect, make_response
 import requests
 import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
 centerIndex = -1 # the center of map, it's ID of cafeteria, map will center on this cafeteria, if it's -1, center on Madison
 proxy = "http://127.0.0.1:8080" # backend API route
-
+token = ""
 # fetch data from backend, create a list of cafeteria object from it
 # return: list of Cafeteria object
 def create_object():
@@ -61,8 +62,13 @@ def table():
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
 # render worker page from cafeteria's ID
-@app.route("/home/<cafe_id>",methods=['GET','POST'])
-def method_name(cafe_id):
+@app.route("/home/<cafe_id>")
+def home(cafe_id):
+    global token
+    response = requests.get(url=proxy+"/verify?token="+token+"&id="+str(cafe_id))
+    if response.status_code != 200:
+        token = ""
+        return redirect("/dashboard")
     cafeterias = create_object()
     selected_cafe = None
     for cafeteria in cafeterias:
@@ -114,6 +120,29 @@ def highlight():
     centerIndex = -1
     return response
     
+
+@app.route('/login',methods = ['POST'])
+def login():
+    global token
+    body = request.json
+    url = proxy+ "/login"
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        }
+    response = requests.post(url=url, headers=headers, json=body)
+    if response.status_code != 200:
+        return make_response(jsonify(
+            {
+                'message' : "Login Failed."
+            }
+        ), 404)
+    token = response.json()['token']
+    return make_response(jsonify(
+            {
+                'message' : "Login Successfully."
+            }
+        ), 200)
 
 # This API will be called by map script to give a json file of cafeterias
 @app.route("/locations", methods = ['GET','POST'])
