@@ -13,7 +13,7 @@ def token_required(f):
         # decode token可以获得Cafeteria的id，如果token无效会返回403
         id = int(request.args.get('id'))
         if not token:
-            return make_response('Token is missing!')
+            return make_response('Token is missing!', 403)
         
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'],"HS256")
@@ -68,12 +68,30 @@ def login():
 
     
 
-@app.route('/location/<cafeteria_id>', methods = ["PUT"])
+@app.route('/update', methods = ["PUT"])
 @token_required
-def update_cafeteria(cafeteria, cafeteria_id):
-    # 检查decode出的id和请求id是否相同
-    if cafeteria.id != cafeteria_id:
-        return make_response("Access denied.", 403)
-    print(request.get_json())
-    return True
+def update_cafeteria(cafeteria):
+    updated_info = json.loads(request.json)
+    cafeteria.name = updated_info['name']
+    cafeteria.address = updated_info['address']
+    cafeteria.hours_open = updated_info['hours_open']
+    cafeteria.hours_closed = updated_info['hours_closed']
+    cafeteria.status = updated_info['status']
+    cafeteria.wait_times = updated_info['wait_times']
+    cafeteria.coords_lat = updated_info['coords_lat']
+    cafeteria.coords_lon = updated_info['coords_lon']
+    cafeteria.type = updated_info['type']
+    try:
+        session.commit()
+    except:
+        return make_response(jsonify(
+            {
+                'message' : "Update failed."
+            }
+        ), 403)
+    return make_response(jsonify(
+            {
+                'message' : "Update successfully."
+            }
+        ), 201)
     

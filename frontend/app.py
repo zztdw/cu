@@ -68,7 +68,7 @@ def home(cafe_id):
     response = requests.get(url=proxy+"/verify?token="+token+"&id="+str(cafe_id))
     if response.status_code != 200:
         token = ""
-        return redirect("/dashboard")
+        return make_response(render_template('denied.html'))
     cafeterias = create_object()
     selected_cafe = None
     for cafeteria in cafeterias:
@@ -105,9 +105,13 @@ def update(cafe_id):
     changed_cafe.wait_times = wait_dict[request.args.get("wait_times", changed_cafe.wait_times)]
     # convert dict to json
     to_update = json.dumps(changed_cafe.getAttr())
-    url = proxy+"/location/"+cafe_id
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        }
+    url = proxy+"/update?id="+cafe_id+"&token="+token
     # send json to backend with put method
-    response = requests.put(url=url,data=to_update)
+    response = requests.put(url=url,headers=headers,json=to_update)
     # don't return response because backend side didn't give a valid response
     return "Done"
 
@@ -141,6 +145,16 @@ def login():
     return make_response(jsonify(
             {
                 'message' : "Login Successfully."
+            }
+        ), 200)
+
+@app.route('/logout')
+def logout():
+    global token
+    token = ""
+    return make_response(jsonify(
+            {
+                'message' : "Logout Successfully."
             }
         ), 200)
 
