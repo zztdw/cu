@@ -1,4 +1,4 @@
-# This is a tiny flask app to test the RESTful API for Map.
+#这是一个测试地图的RESTful API的小型烧瓶应用程序。
 
 
 from flask import Flask, jsonify, request, flash, url_for
@@ -8,11 +8,11 @@ import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
-centerIndex = -1 # the center of map, it's ID of cafeteria, map will center on this cafeteria, if it's -1, center on Madison
+centerIndex = 2 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以麦迪逊为中心
 proxy = "http://127.0.0.1:8080" # backend API route
 token = ""
-# fetch data from backend, create a list of cafeteria object from it
-# return: list of Cafeteria object
+# 从后端获取数据，从中创建自助餐厅对象列表
+# return：自助餐厅对象列表
 def create_object():
     try:
         response = requests.get(proxy+"/location").text
@@ -24,7 +24,7 @@ def create_object():
         cafeterias.append(Cafeteria(c_dict))
     return cafeterias
 
-# redirect to map
+#重定向到地图
 @app.route("/")
 def index():
     return redirect("/map")
@@ -158,15 +158,15 @@ def logout():
             }
         ), 200)
 
-# This API will be called by map script to give a json file of cafeterias
+# map脚本将调用此API，以提供自助餐厅的json文件
 @app.route("/locations", methods = ['GET','POST'])
 def locations():
     cafeterias = create_object()
     dict_list = []
-    # get list of dict of cafeteria attr
+    # 获取自助餐厅属性的dict列表
     for c in cafeterias:
         dict_list.append(c.getAttr())
-    # jsonify and return
+    #  jsonify and return
     return jsonify(dict_list)
 
 if __name__ == '__main__':
