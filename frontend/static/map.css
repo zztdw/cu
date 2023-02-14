@@ -3,9 +3,9 @@
  * that contains the map. 
  */
  :root {
-    --high: #ff9c9c;
-    --medium: #fff78a;
-    --low: #7dff9f;
+    --high: #ff7474;
+    --medium: #ffee00;
+    --low: #5fff8a;
     --closed: #0d0d0d;
 }
  #map {
