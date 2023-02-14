@@ -8,11 +8,11 @@ import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
-centerIndex = 2 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以麦迪逊为中心
+centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以麦迪逊为中心
 proxy = "http://127.0.0.1:8080" # backend API route
 token = ""
 # 从后端获取数据，从中创建自助餐厅对象列表
-# return：自助餐厅对象列表
+# return：自助餐厅对象列表 
 def create_object():
     try:
         response = requests.get(proxy+"/location").text
@@ -32,7 +32,7 @@ def index():
 # render the map page
 @app.route("/map", methods=['GET', 'POST'])
 def map():
-    # get centerIndex to see if need to center at certain cafeteria
+    # 获取centerIndex，查看是否需要在某个自助餐厅居中
     global centerIndex
     centerIndex = int(request.args.get("highlight","-1"))
     response = make_response(render_template("map.html"))
@@ -115,12 +115,12 @@ def update(cafe_id):
     # don't return response because backend side didn't give a valid response
     return "Done"
 
-# This will called by dashboard page to assign the center of map
+# 这将由dashboard页面调用以分配地图中心
 @app.route("/highlight", methods = ['GET','POST'])
 def highlight():
     global centerIndex
     response = json.dumps([centerIndex])
-    # Change it back to -1 because center at cafeteria is not default behavior
+    # 将其改回-1，因为自助餐厅中心不是默认行为
     centerIndex = -1
     return response
     

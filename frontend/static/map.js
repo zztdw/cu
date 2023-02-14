@@ -1,6 +1,6 @@
 let map = null; // map object
-var center = {lat:43.0722, lng:-89.4008} // the center of the map when initialized
-var zoom = 15 // zoom (scale) of the map
+var center = {lat:37.48136592227171,  lng:121.44883175667697} // the center of the map when initialized
+var zoom = 16 // zoom (scale) of the map
 // code review: comment about flask route api
 let locationUrl = "/locations" // This is api route for flask application, detailed info see app.py
 let highlightUrl = "/highlight" // This is api route for flask application, detailed info see app.py
