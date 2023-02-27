@@ -1,6 +1,3 @@
-#这是一个测试地图的RESTful API的小型烧瓶应用程序。
-
-
 from flask import Flask, jsonify, request, flash, url_for
 from flask import render_template, redirect, make_response
 import requests
