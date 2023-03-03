@@ -1,6 +1,4 @@
 from datetime import datetime
-
-# Author: Bingxu Hu
 # This is cafeteria class from json file from backend,
 # creating object object make it easier to perform operation on frontend
 class Cafeteria:

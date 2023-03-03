@@ -270,7 +270,7 @@ async function initMap() {
     });
     // create marker basing on the cafeterias and push to marker
     
-    // add all markers to map
+    // 添加所有标记到地图
     for (let i = 0; i < markers.length; i++) {
         setMarkerOn(markers[i]) 
     }
