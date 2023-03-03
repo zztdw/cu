@@ -53,7 +53,7 @@ def table():
             fasts.append(c)
     type_dict = {
         "快餐" : fasts,
-        "咖啡厅"      : cafes,
+        "咖啡厅" : cafes,
         "食堂":dinings
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
@@ -75,7 +75,7 @@ def home(cafe_id):
         return make_response("Invalid cafeteria id.", 403)
     return make_response(render_template("worker.html", cafeteria = selected_cafe, proxy = proxy))
 
-# This is API which will be called by worker page
+# 员工界面
 # The worker page will call this API with passing some query string
 @app.route("/location/<cafe_id>",methods=['GET'])
 def update(cafe_id):
@@ -87,7 +87,7 @@ def update(cafe_id):
             changed_cafe = cafeteria
     if not changed_cafe:
         return make_response("Invalid cafeteria id.", 403)
-    # map from url string to string sent to backend
+    # 将数据发送到后端
     wait_dict = {
         "lt5min" : "< 5 min",
         "5-15min"  : "5 - 15 min",
