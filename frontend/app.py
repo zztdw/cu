@@ -9,7 +9,7 @@ centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家�
 proxy = "http://127.0.0.1:8080" # 后端 API
 token = ""
 # 从后端获取数据，从中创建自助餐厅对象列表
-# return：自助餐厅对象列表 
+# return：餐厅对象列表 
 def create_object():
     try:
         response = requests.get(proxy+"/location").text
@@ -37,14 +37,14 @@ def map():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-# 处理自助餐厅对象列表，将它们分类成dict，然后用dict渲染dashboard页面
+# 处理餐厅对象列表，将它们分类成dict，然后用dict渲染dashboard页面
 @app.route("/dashboard",methods=['GET','POST'])
 def table():
     cafeterias = create_object()
     cafes = []
     dinings = []
     fasts = []
-    # 根据类型对自助餐厅进行分类
+    # 根据类型对餐厅进行分类
     for c in cafeterias:
         if c.type == "Cafe":
             cafes.append(c)
@@ -59,7 +59,7 @@ def table():
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
-# 从自助餐厅的 ID 渲染工作页面
+# 从餐厅的 ID 渲染工作页面
 @app.route("/home/<cafe_id>")
 def home(cafe_id):
     global token
@@ -77,12 +77,12 @@ def home(cafe_id):
     return make_response(render_template("worker.html", cafeteria = selected_cafe, proxy = proxy))
 
 # 员工界面
-# The worker page will call this API with passing some query string
+# 工作页面将通过传递一些查询字符串来调用此 API
 @app.route("/location/<cafe_id>",methods=['GET'])
 def update(cafe_id):
     cafeterias = create_object()
     changed_cafe = None
-    # check if cafe_id valid
+    # 检查 cafe_id 是否有效
     for cafeteria in cafeterias:
         if cafeteria.id == int(cafe_id):
             changed_cafe = cafeteria
