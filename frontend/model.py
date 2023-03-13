@@ -18,7 +18,7 @@ class Cafeteria:
         self.hours_open = open_time.strftime("%H:%M:%S")
         self.hours_closed = close_time.strftime("%H:%M:%S")
         # default status decided by open, close and current time
-        self.status = "open" if curr > open_time and curr < close_time else "Closed"
+        self.status = "Open" if curr > open_time and curr < close_time else "Closed"
         # real status from json
         if(info.get("status")=='Open' or info.get("status") == "Closed"):
             self.status = info.get("status")
@@ -32,39 +32,42 @@ class Cafeteria:
         return self.__dict__
 
 # fake data 1
-sett = Cafeteria({
-    "id" : 1,
-    "name" : "Sett Pub",
-    "address" : "1308 W Dayton St room 105, Madison, WI 53715",
-    "hours_open" : "11:00:00",
-    "hours_closed" : "23:30:00",
-    "wait_times" : "> 20 min",
-    "type" : "Fast Food",
-    "coords_lat" : "43.071328653947916",
-    "coords_lon" : "-89.4077521876059",
-})
-# fake data 2
-gordon = Cafeteria({
-    "id" : 2,
-    "name" : "Gordon Dining and Event Center",
-    "address" : "770 W Dayton St, Madison, WI 53706",
-    "hours_open" : "09:00:00",
-    "hours_closed" : "23:30:00",
-    "wait_times" : "5 - 15 min",
-    "type" : "Dining",
-    "coords_lat" : "43.07125867881556",
-    "coords_lon" : "-89.39863335870125",
-})
-# fake data 3
-capital = Cafeteria({
-    "id" : 3,
-    "name" : "Capital Cafe",
-    "address" : "975 University Ave, Madison, WI 53715",
-    "hours_open" : "08:00:00",
-    "hours_closed" : "23:30:00",
-    "wait_times" : "< 5 min",
-    "type" : "Cafe",
-    "coords_lat" : "43.072379022579604",
-    "coords_lon" : "-89.40102623896776",
-})
-        
+# sett = Cafeteria({
+#     "id" : 1,
+#     "name" : "西校区食堂",
+#     "address" : "居仁路与鹏举路交汇处",
+#     "hours_open" : "11:00:00",
+#     "hours_closed" : "23:30:00",
+#     "wait_times" : "> 20 min",
+#     "status" : "Open",
+#     "type" : "Fast Food",
+#     "coords_lat" : "37.479909",
+#     "coords_lon" : "121.439339",
+# })
+# # fake data 2
+# gordon = Cafeteria({
+#     "id" : 2,
+#     "name" : "东校三餐厅",
+#     "address" : "成阜路沿街",
+#     "hours_open" : "05:00:00",
+#     "hours_closed" : "20:30:00",
+#     "status" : "Open",
+#     "wait_times" : "5 - 15 min",
+#     "type" : "Dining",
+#     "coords_lat" : "37.483827",
+#     "coords_lon" : "121.447089",
+# })
+# # fake data 3
+# capital = Cafeteria({
+#     "id" : 3,
+#     "name" : "东校二餐厅",
+#     "address" : "成阜路沿街靠北",
+#     "hours_open" : "06:00:00",
+#     "hours_closed" : "20:00:00",
+#     "status" : "Open",
+#     "wait_times" : "> 20 min",
+#     "type" : "Cafe",
+#     "coords_lat" : "37.48481636307102",
+#     "coords_lon" : "121.44722528880223",
+# })
+

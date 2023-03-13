@@ -21,7 +21,7 @@
                                 <div class="w-100">{{cafeteria.name}} </div>
                                 <!-- The badge will be different according to the waiting time and status of cafeteria -->
                                 {% if cafeteria.status == "Closed" %}
-                                    <div class="badge bg-secondary rounded-pill class="p-2 flex-shrink-1"">Closed</div>
+                                    <div class="badge bg-secondary rounded-pill" class="p-2 flex-shrink-1">Closed</div>
                                 {% else %}
                                     {% if cafeteria.wait_times == "< 5 min" %}
                                         <div class="badge bg-success rounded-pill">&lt;5 min</div>
@@ -48,7 +48,7 @@
                                     <div class="row">
                                         <div class="btn-group" role="group">
                                             <a type="button" class="btn btn-outline-primary" href="/map?highlight={{cafeteria.id}}">Show On Map</a>
-                                            <a type="button" class="btn btn-outline-success" href="/home/{{cafeteria.id}}">You're Worker?</a>
+                                            <a type="button" class="btn btn-outline-success" onClick="login('{{cafeteria.id}}')">You're Worker?</a>
                                           </div>
                                     </div>
                                 </div>
@@ -65,5 +65,27 @@
 {% endblock %}
 
 {% block script %}
-    
+    <script>
+        async function login(cafeteria_id){
+            let id = parseInt(cafeteria_id)
+            let password = prompt("Enter the password");
+            let response = fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "id": cafeteria_id, "password": password })
+            }).then(response=>{
+                if(response.status == 404){
+                    alert("Your password is incorrect.")
+                }
+                else{
+                    window.location.href = "/home/"+cafeteria_id;
+                }
+            })
+            
+            
+        }
+    </script>
 {% endblock %}

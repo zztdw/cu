@@ -3,10 +3,10 @@
  * that contains the map. 
  */
  :root {
-    --high: #ff0000;
-    --medium: #e7d80c;
-    --low: #00f140;
-    --closed: #808080;
+    --high: #ff7474;
+    --medium: #ffee00;
+    --low: #5fff8a;
+    --closed: #0d0d0d;
 }
  #map {
     height: 100%;

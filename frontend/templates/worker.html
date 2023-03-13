@@ -44,7 +44,7 @@
 <!-- The footer for logout and restaurant open/closed switch toggle -->
 <footer style="margin: 0 5px 0 5px">
   <div class="logout">
-    <button type="button" class="btn btn-lg btn-primary float-start">
+    <button type="button" class="btn btn-lg btn-primary float-start" id="logout">
       Logout
     </button>
   </div>
@@ -89,6 +89,10 @@
       const response = await fetch("/location/{{cafeteria.id}}?wait_times=gt20min");
     }
   }
+  async function logout(){
+    const response = await fetch("/logout");
+    window.location.href = "/dashboard";
+  }
   // get current state of DOM and send state to backend
   async function changeState(){
     let checked = $("#check").prop("checked")
@@ -99,6 +103,7 @@
   $('#fifteen').click(()=>{changeWait("fifteen")})
   $('#twenty').click(()=>{changeWait("twenty")})
   $("#check").change(changeState)
+  $("#logout").click(logout)
 </script>
 {% endblock%}
 
