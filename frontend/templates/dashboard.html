@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="row justify-content-center g-2">
-            <!-- For different type, create different column -->
+           <!--对于不同的类型，创建不同的列 -->
             {% for type in type_dict %}
                 <div class="col-lg-4 col-sm-6 align-items-start">
                     <!-- Create accordion for each column -->
@@ -33,7 +33,7 @@
                                 {% endif %}
                             </button>
                           </h2>
-                          <!-- Show detailed information if user click button -->
+                          <!--如果用户点击按钮显示详细信息 -->
                           <div id="{{cafeteria.name.replace(' ','-')}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion{{type.replace(' ','-')}}">
                             <div class="accordion-body">
                                 <div class="container-fluid gap-4">
