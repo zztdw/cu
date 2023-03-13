@@ -37,14 +37,14 @@ def map():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-# Process list of cafeterias object, classify them into dict, then render dashboard page with dict
+# 处理自助餐厅对象列表，将它们分类成dict，然后用dict渲染dashboard页面
 @app.route("/dashboard",methods=['GET','POST'])
 def table():
     cafeterias = create_object()
     cafes = []
     dinings = []
     fasts = []
-    # classify cafeteria according to their type
+    # 根据类型对自助餐厅进行分类
     for c in cafeterias:
         if c.type == "Cafe":
             cafes.append(c)
@@ -59,7 +59,7 @@ def table():
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
-# render worker page from cafeteria's ID
+# 从自助餐厅的 ID 渲染工作页面
 @app.route("/home/<cafe_id>")
 def home(cafe_id):
     global token
@@ -109,9 +109,9 @@ def update(cafe_id):
         'Content-Type': 'application/json'
         }
     url = proxy+"/update?id="+cafe_id+"&token="+token
-    # send json to backend with put method
+    # 使用put方法将json发送到后端
     response = requests.put(url=url,headers=headers,json=to_update)
-    # don't return response because backend side didn't give a valid response
+    # 不返回响应，因为后端没有给出有效响应
     return "Done"
 
 # 这将由dashboard页面调用以分配地图中心
@@ -166,7 +166,7 @@ def locations():
     # 获取自助餐厅属性的dict列表
     for c in cafeterias:
         dict_list.append(c.getAttr())
-    #  jsonify and return
+    #  JSON化并返回
     return jsonify(dict_list)
 
 if __name__ == '__main__':
