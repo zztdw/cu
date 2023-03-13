@@ -31,7 +31,7 @@ class Cafeteria:
 
 # fake data 1
 sett = Cafeteria({
-    "id" : 1,
+    "id" : 9,
     "name" : "西校区食堂",
     "address" : "居仁路与鹏举路交汇处",
     "hours_open" : "11:00:00",
@@ -44,7 +44,7 @@ sett = Cafeteria({
 })
 # fake data 2
 gordon = Cafeteria({
-    "id" : 2,
+    "id" : 8,
     "name" : "东校三餐厅",
     "address" : "成阜路沿街",
     "hours_open" : "05:00:00",
@@ -57,7 +57,7 @@ gordon = Cafeteria({
 })
 # fake data 3
 capital = Cafeteria({
-    "id" : 3,
+    "id" : 7,
     "name" : "东校二餐厅",
     "address" : "成阜路沿街靠北",
     "hours_open" : "06:00:00",

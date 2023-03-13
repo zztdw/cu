@@ -5,7 +5,7 @@ import json
 from model import Cafeteria, sett, gordon, capital
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
-centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以麦迪逊为中心
+centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以山东工商学院为中心
 proxy = "http://127.0.0.1:8080" # backend API route
 token = ""
 # 从后端获取数据，从中创建自助餐厅对象列表
@@ -96,9 +96,10 @@ def update(cafe_id):
         "5 - 15 min" : "5 - 15 min",
         "> 20 min" : "> 20 min"
     }
-    # if arg contain status, use that one, if not, use old one
+    # 如果arg包含状态，则使用该状态，如果不包含，则使用旧状态
     changed_cafe.status = request.args.get("status", changed_cafe.status)
     # same as status, but one more pipeline mapped by wait_dict
+    #与状态相同，但wait_div映射了另一个管道
     changed_cafe.wait_times = wait_dict[request.args.get("wait_times", changed_cafe.wait_times)]
     # convert dict to json
     to_update = json.dumps(changed_cafe.getAttr())
