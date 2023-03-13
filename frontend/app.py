@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request, flash, url_for
 from flask import render_template, redirect, make_response
 import requests
 import json
-from model import Cafeteria, sett, gordon, capital
+from model import Cafeteria
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
 centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以麦迪逊为中心
@@ -19,9 +19,10 @@ def create_object():
     except:
         response = "[]"
     dict_list = json.loads(response)
-    cafeterias = [sett, gordon, capital]
+    cafeterias = []
     for c_dict in dict_list:
         cafeterias.append(Cafeteria(c_dict))
+    print(cafeterias)
     return cafeterias
 
 #重定向到地图
@@ -56,8 +57,8 @@ def table():
             fasts.append(c)
     type_dict = {
         "快餐" : fasts,
-        "咖啡厅"      : cafes,
-        "食堂":dinings
+        "咖啡厅" : cafes,
+        "食堂": dinings
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
@@ -134,6 +135,7 @@ def login():
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         }
+    print(body)
     response = requests.post(url=url, headers=headers, json=body)
     if response.status_code != 200:
         return make_response(jsonify(

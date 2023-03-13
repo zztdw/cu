@@ -32,42 +32,42 @@ class Cafeteria:
         return self.__dict__
 
 # fake data 1
-sett = Cafeteria({
-    "id" : 1,
-    "name" : "西校区食堂",
-    "address" : "居仁路与鹏举路交汇处",
-    "hours_open" : "11:00:00",
-    "hours_closed" : "23:30:00",
-    "wait_times" : "> 20 min",
-    "status" : "Open",
-    "type" : "Fast Food",
-    "coords_lat" : "37.479909",
-    "coords_lon" : "121.439339",
-})
-# fake data 2
-gordon = Cafeteria({
-    "id" : 2,
-    "name" : "东校三餐厅",
-    "address" : "成阜路沿街",
-    "hours_open" : "05:00:00",
-    "hours_closed" : "20:30:00",
-    "status" : "Open",
-    "wait_times" : "5 - 15 min",
-    "type" : "Dining",
-    "coords_lat" : "37.483827",
-    "coords_lon" : "121.447089",
-})
-# fake data 3
-capital = Cafeteria({
-    "id" : 3,
-    "name" : "东校二餐厅",
-    "address" : "成阜路沿街靠北",
-    "hours_open" : "06:00:00",
-    "hours_closed" : "20:00:00",
-    "status" : "Open",
-    "wait_times" : "> 20 min",
-    "type" : "Cafe",
-    "coords_lat" : "37.48481636307102",
-    "coords_lon" : "121.44722528880223",
-})
+# sett = Cafeteria({
+#     "id" : 1,
+#     "name" : "西校区食堂",
+#     "address" : "居仁路与鹏举路交汇处",
+#     "hours_open" : "11:00:00",
+#     "hours_closed" : "23:30:00",
+#     "wait_times" : "> 20 min",
+#     "status" : "Open",
+#     "type" : "Fast Food",
+#     "coords_lat" : "37.479909",
+#     "coords_lon" : "121.439339",
+# })
+# # fake data 2
+# gordon = Cafeteria({
+#     "id" : 2,
+#     "name" : "东校三餐厅",
+#     "address" : "成阜路沿街",
+#     "hours_open" : "05:00:00",
+#     "hours_closed" : "20:30:00",
+#     "status" : "Open",
+#     "wait_times" : "5 - 15 min",
+#     "type" : "Dining",
+#     "coords_lat" : "37.483827",
+#     "coords_lon" : "121.447089",
+# })
+# # fake data 3
+# capital = Cafeteria({
+#     "id" : 3,
+#     "name" : "东校二餐厅",
+#     "address" : "成阜路沿街靠北",
+#     "hours_open" : "06:00:00",
+#     "hours_closed" : "20:00:00",
+#     "status" : "Open",
+#     "wait_times" : "> 20 min",
+#     "type" : "Cafe",
+#     "coords_lat" : "37.48481636307102",
+#     "coords_lon" : "121.44722528880223",
+# })
 
