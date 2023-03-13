@@ -8,16 +8,16 @@
   {% endblock %}
 
   {% block body %}
-    <!-- Wrapper, actually filtering window -->
+    <!--Wrapper，实际上是过滤窗口-->
     <div id="wrapper">
-      <!-- Sidebar -->
+     <!--侧边栏 -->
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav" id="side_bar">
           <li class="sidebar-brand" style="font-weight: bold; color: #999999;">
             <h1>过滤器</h1>
           </li>
           <hr>
-          <!-- accordion for filtering condition -->
+         <!--过滤条件-->
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -77,33 +77,28 @@
           
         </ul>
       </div>
-      <!-- /#sidebar-wrapper -->
-      <!-- Page Content -->
+      <!--/#sidebar-wrapper -->
+      <!--页面内容 -->
       <div id="page-content-wrapper">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
               <h1>
                 <a href="#menu-toggle" class="gradient-menu" id="menu-toggle"></a>
-                &nbsp;Map&nbsp;<!-- a href="#menu-toggle" class="btn btn-default" >Toggle Sidebar</a -->
+                &nbsp;Map&nbsp;<!--a href="#menu-toggle" class="btn btn-default" >切换侧边栏</a -->
               </h1>
-              <!-- The map will finally be rendered in this div -->
+        <!--地图最终将在这个 div 中呈现 -->
               <div id="map"></div>
             </div>
           </div>
         </div>
       </div>
-      <!-- /#page-content-wrapper -->
+      <!--/#页面内容包装器 -->
     </div>
-    <!-- 
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
+
   {% endblock %}
   {% block script %}
-  <!-- include google map api -->
+  <!-- 谷歌地图 api -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1yZohw-dUXrCAZ4VMcyO0zlpYx_7Pw6Q&callback=initMap&libraries=marker&v=beta"
       defer

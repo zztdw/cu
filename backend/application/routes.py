@@ -32,7 +32,7 @@ def verify(cafeteria):
 
 @app.route('/location')
 def location():
-    # sqlite query
+    # sqlite 查询
     cafeterias = session.query(Cafeteria)
     return_list = []
     # 迭代所有cafeteria

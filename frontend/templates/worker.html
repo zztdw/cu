@@ -28,8 +28,7 @@
   <script src="{{ url_for('static', filename='./worker/app.js') }}"></script>
 
   <div class="row">
-    <!-- This is for the three time buttons: 5 mins, 5 - 15 mins, > 20 minutes-->
-    <!-- see this for integrating with backend: https://stackoverflow.com/questions/48438575/call-django-on-html-button-click -->
+    <!--三个时间按钮：5 分钟、5 -15 分钟、> 20 分钟-->
     <div class="col-sm">
         <button type="submit" class="btn btn-success time-text" id="five">< 5 min</button>
     </div>
@@ -41,7 +40,7 @@
     </div>
   </div>
 </main>
-<!-- The footer for logout and restaurant open/closed switch toggle -->
+<!--注销和餐厅开/关开关切换的页脚 -->
 <footer style="margin: 0 5px 0 5px">
   <div class="logout">
     <button type="button" class="btn btn-lg btn-primary float-start" id="logout">
@@ -49,7 +48,7 @@
     </button>
   </div>
   <form class="options" method="post">
-    <!-- Modified switch toggle to allow texts on both right and right side-->
+<!--修改开关切换以允许右侧和右侧的文本-->
     <div
       id="enabled"
       style="display: flex; align-items: center"
@@ -68,7 +67,7 @@
   </form>
 </footer>
 <script>
-  // send api call to flask app and flask will finally send request to backend
+  //将 api 调用发送到 flask 应用程序，flask 最终将请求发送到后端
   const state = async (checked) => {
     if(checked){
       const response = await fetch("/location/{{cafeteria.id}}?status=Open");
@@ -77,7 +76,7 @@
       const response = await fetch("/location/{{cafeteria.id}}?status=Closed");
     }
   }
-  // send api call to flask app and flask will finally send request to backend
+  //将 api 调用发送到 flask 应用程序，flask 最终将请求发送到后端
   async function changeWait(waittime){
     if(waittime == "five"){
       const response = await fetch("/location/{{cafeteria.id}}?wait_times=lt5min");
@@ -93,12 +92,12 @@
     const response = await fetch("/logout");
     window.location.href = "/dashboard";
   }
-  // get current state of DOM and send state to backend
+//获取 DOM 的当前状态并将状态发送到后端
   async function changeState(){
     let checked = $("#check").prop("checked")
     state(checked)
   }
-  // add event listener, every time click and change these DOM, request will be sent
+ //添加事件监听器，每次点击和更改这些 DOM 时，都会发送请求
   $('#five').click(()=>{changeWait("five")})
   $('#fifteen').click(()=>{changeWait("fifteen")})
   $('#twenty').click(()=>{changeWait("twenty")})

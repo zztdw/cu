@@ -15,7 +15,7 @@ body {
   width: 100%;
 }
 
-/* hamburger menu pseudo element */
+/*快餐菜单伪元素 */
 
 .box-shadow-menu {
   position: relative;
@@ -31,7 +31,7 @@ body {
   background: black;
   box-shadow: 0 0.25em 0 0 black, 0 0.5em 0 0 black;
 }
-/* hamburger menu pseudo element gradient */
+/*快餐菜单伪元素渐变 */
 
 .gradient-menu {
   padding-left: 1.25em;
@@ -46,15 +46,9 @@ body {
   width: 1em;
   background: linear-gradient(to bottom, black, black 20%, white 20%, white 40%, black 40%, black 60%, white 60%, white 80%, black 80%, black 100%);
 }
-/* http://www.jqueryscript.net/demo/Bootstrap-Sidebar-Extension-With-jQuery-CSS-CSS3/ */
 
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
 
-/* Toggle Styles */
+/*切换样式 */
 
 .nav-tabs>li {
   float: none;
@@ -105,7 +99,7 @@ body {
   position: absolute;
   margin-right: -250px;
 }
-/* Sidebar Styles */
+/*侧边栏样式 */
 
 .sidebar-nav {
   position: absolute;

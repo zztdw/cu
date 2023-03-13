@@ -1,6 +1,6 @@
-/* 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
+/*
+ *始终明确设置地图高度以定义 div 元素的大小
+ *包含地图。
  */
  :root {
     --high: #ff7474;
@@ -12,8 +12,8 @@
     height: 100%;
   }
   
-  /* 
-   * Optional: Makes the sample page fill the window. 
+  /*
+   *可选：使示例页面填满窗口。
    */
   html,
   body {
@@ -103,8 +103,8 @@
     padding: 5px;
   }
   
-  /*
-   * Property styles in highlighted state.
+ /*
+   *突出显示状态的属性样式。
    */
   .property.highlight {
     background-color: #FFFFFF;
@@ -141,7 +141,7 @@
   }
   
   /*
-   * low icon colors.
+   *低图标颜色。
    */
   .property.highlight:has(.low) .icon {
     color: var(--low);
@@ -156,7 +156,7 @@
   }
   
   /*
-   * medium icon colors.
+   *中等图标颜色。
    */
   .property.highlight:has(.medium) .icon {
     color: var(--medium);
@@ -170,8 +170,8 @@
     border-top: 9px solid var(--medium);
   }
   
-  /*
-   * high icon colors.
+/*
+   *高图标颜色。
    */
   .property.highlight:has(.high) .icon {
     color: var(--high);
@@ -188,8 +188,8 @@
   .property.highlight:has(.closed) .icon {
     color: var(--closed);
   }
-  /*
-   * close icon colors.
+ /*
+   *关闭图标颜色。
    */
   .property:not(.highlight):has(.closed) {
     background-color: var(--closed);

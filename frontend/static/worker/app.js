@@ -1,27 +1,27 @@
-// Get time when the webpage is loaded
+//获取网页加载时间
 var startCountdownTime = new Date().getTime();
 
-// Update the count down every 1 second
+//每 1 秒更新一次倒计时
 var x = setInterval(function() {
 
-  // get time
+//获取时间
   var now = new Date().getTime();
     
-  // get 5 minutes countdown time
+//获得5分钟倒计时时间
   var reminderMinutes = 5;
   var countDownTime = new Date(startCountdownTime + (reminderMinutes*60*1000));
 
-  // Find the distance between now and the count down date
+  //计算现在和倒计时日期之间的距离
   var distance = countDownTime - now;
 
-  // Time calculations for minutes and seconds
+  //分秒的时间计算
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  // Display the result in the element with id="timer"
+//在 id="timer" 的元素中显示结果
   document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 
-  // If the count down is finished, write some text
+//如果倒计时结束，发送提醒
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("timer").innerHTML = "EXPIRED";

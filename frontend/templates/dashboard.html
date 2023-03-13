@@ -19,7 +19,7 @@
                           <h2 class="accordion-header" id="heading{{type.replace(' ','-')}}">
                             <button class="accordion-button d-flex collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{cafeteria.name.replace(' ','-')}}" aria-expanded="false" aria-controls="{{cafeteria.id}}">
                                 <div class="w-100">{{cafeteria.name}} </div>
-                                <!-- The badge will be different according to the waiting time and status of cafeteria -->
+                              <!--标记会根据食堂等候时间和状态不同-->
                                 {% if cafeteria.status == "Closed" %}
                                     <div class="badge bg-secondary rounded-pill" class="p-2 flex-shrink-1">Closed</div>
                                 {% else %}

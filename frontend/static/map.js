@@ -1,17 +1,17 @@
-let map = null; // map object
-var center = {lat:37.48136592227171,  lng:121.44883175667697} // the center of the map when initialized
-var zoom = 16 // zoom (scale) of the map
-// code review: comment about flask route api
-let locationUrl = "/locations" // This is api route for flask application, detailed info see app.py
-let highlightUrl = "/highlight" // This is api route for flask application, detailed info see app.py
+let map = null; //映射对象
+var center = {lat:37.48136592227171,  lng:121.44883175667697} //初始化时地图的中心
+var zoom = 16 //地图的缩放（比例）
+//代码审查：关于 flask route api 的评论
+let locationUrl = "/locations" //这是 flask 应用的 api 路由，详细信息见 app.py
+let highlightUrl = "/highlight" //这是 flask 应用的 api 路由，详细信息见 app.py
 let highlighted = -1
 let markers = [] // list of markers
 let cafeterias = [] // list of cafeteria object
 
-// code review: comment about input and output
-// create object from fetched data
-// input: data structure parsed from json file
-// return: a cafeteria object containing attributes
+//代码审查：关于输入和输出的注释
+//从获取的数据创建对象
+//输入：从json文件解析出来的数据结构
+//返回：一个包含属性的自助餐厅对象
 function createObject(data) {
     let id = data.id;
     let name = data.name;
@@ -56,33 +56,32 @@ function createObject(data) {
 }
 
 
-// code review: comment why map is null
-// code review: detailed explination comment about event, each part of adding event listener.
-// function adding markers to the map
+
+//向地图添加标记的函数
 function addMarker(cafeterias) {
     for (const cafeteria of cafeterias) {
         const advancedMarkerView = new google.maps.marker.AdvancedMarkerView({
-            map: null, // when map is null, the marker will not be displayed on map, we will show marker in other function
+            map: null, //当map为null时，标记不会显示在地图上，我们将在其他函数中显示标记
             content: buildContent(cafeteria),
             position: cafeteria.location,
         });
         const element = advancedMarkerView.element;
 
-        // add event listener to each marker
+        //为每个标记添加事件监听器
 
-        // add event listener: when pointer enter the marker, the marker will be highlighted
+        //添加事件侦听器：当指针进入标记时，标记将突出显示
         ["focus", "pointerenter"].forEach((event) => {
             element.addEventListener(event, () => {
                 highlight(advancedMarkerView);
             });
         });
-        // add event listener: when pointer leave the marker, the marker will be unhighlighted
+        //添加事件侦听器：当指针离开标记时，标记将取消突出显示
         ["blur", "pointerleave"].forEach((event) => {
             element.addEventListener(event, () => {
                 unhighlight(advancedMarkerView);
             });
         });
-        // add event listener: when clicking the marker, the marker will be unhighlighted
+        //添加事件监听器：当点击标记时，标记将取消高亮
         advancedMarkerView.addListener("click", (event) => {
             unhighlight(advancedMarkerView);
         });
@@ -90,7 +89,7 @@ function addMarker(cafeterias) {
     }
 }
 
-// making marker responsive to show details
+//使标记响应显示细节
 function highlight(markerView) {
     markerView.content.classList.add("highlight");
     markerView.element.style.zIndex = 1;
@@ -101,7 +100,7 @@ function unhighlight(markerView) {
     markerView.element.style.zIndex = "";
 }
 
-// create relative DOM for the marker to make responsive functions working
+//为标记创建相对 DOM 以使响应函数工作
 function buildContent(cafeteria) {
     const content = document.createElement("div");
 
@@ -122,17 +121,16 @@ function buildContent(cafeteria) {
     return content;
 }
 
-// show given makers in the map
+//在地图中显示给定的制造商
 function setMarkerOn(marker) {
     marker.map = map;
 }
 
-// show given makers in the map
+//在地图中显示给定的制造器
 function setMarkerOff(marker) {
     marker.map = null;
 }
-
-// show markers on map according to the checkbox value
+//根据复选框值在地图上显示标记
 function filterCrowd() {
     let low = $("#low-check").prop("checked")
     let medium = $("#medium-check").prop("checked")
@@ -174,14 +172,14 @@ function filterCrowd() {
     }
 }
 
-// add event listener to filtering UI components
+//为过滤 UI 组件添加事件监听器
 $("#high-check").change(filterCrowd)
 $("#medium-check").change(filterCrowd)
 $("#low-check").change(filterCrowd)
 $("#close-check").change(filterCrowd)
 
 
-// show makers on map according to the type value
+//根据type值在地图上显示makers
 function filterType() {
     let fast = $("#fast-check").prop("checked")
     let dining = $("#dining-check").prop("checked")
@@ -218,37 +216,37 @@ $("#fast-check").change(filterType)
 $("#dining-check").change(filterType)
 $("#cafe-check").change(filterType)
 
-// code review: more explination about pipeline of flask and backend
-// function that fetch data from backend API
-// pipeline: backend API -> flask frontend app -> this javascript call flask API to get the data
+
+//从后端 API 获取数据的函数
+
 const fetchLocation = async () => {
     const response = await fetch(locationUrl);
-    const data = await response.json(); //extract JSON from the http response
+    const data = await response.json(); //从http响应中提取JSON
     for(let i = 0; i < data.length; i++){
         cafeterias.push(createObject(data[i]))
     }
 }
 const fetchHighlight = async () => {
     const response = await fetch(highlightUrl);
-    const data = await response.json(); //extract JSON from the http response
+    const data = await response.json(); //从http响应中提取JSON
     highlighted = data[0]
 }
 
-// code review: comment about await fetch data
-// code review: fetch data closer to its caller.
-// initialize the map
+//代码审查：关于等待获取数据的评论
+//代码审查：获取更接近其调用者的数据。
+//初始化地图
 async function initMap() {
-    // using JQuery to make layout of map response to toggle
+    //使用 JQuery 使地图布局响应切换
     var myWrapper = $("#wrapper");
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         myWrapper.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
-            // code to execute after transition ends
+            //转换结束后执行的代码
             google.maps.event.trigger(map, 'resize');
         });
     });
-    // wait for data fetching finish to do next step, or data will not be displayed
+   //等待数据获取完成进行下一步，否则数据不会显示
     await fetchLocation()
     await fetchHighlight()
     addMarker(cafeterias)
@@ -262,13 +260,13 @@ async function initMap() {
             }
         }
     }
-    // create map
+    //创建地图
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: zoom,
         center: center,
         mapId: "4504f8b37365c3d0"
     });
-    // create marker basing on the cafeterias and push to marker
+    //基于餐厅创建标记并推送到标记
     
     // 添加所有标记到地图
     for (let i = 0; i < markers.length; i++) {
@@ -277,5 +275,5 @@ async function initMap() {
 }
 
 
-// initialize map every time load the window automatically.
+//每次自动加载窗口时初始化地图。
 window.initMap = initMap;
