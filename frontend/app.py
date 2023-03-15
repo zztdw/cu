@@ -8,8 +8,8 @@ app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
 centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以山东工商学院为中心
 proxy = "http://127.0.0.1:8080" # 后端 API
 token = ""
-# 从后端获取数据，从中创建自助餐厅对象列表
-# return：餐厅对象列表 
+# 从后端获取数据，从中创建自助餐厅对象列表 
+ # return：餐厅对象列表 
 def create_object():
     try:
         response = requests.get(proxy+"/location").text
@@ -17,7 +17,7 @@ def create_object():
         response = "[]"
     dict_list = json.loads(response)
     cafeterias = []
-    for c_dict in dict_list:
+    for c_dict in dict_list: 
         cafeterias.append(Cafeteria(c_dict))
     print(cafeterias)
     return cafeterias
