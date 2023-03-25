@@ -45,7 +45,10 @@ def location():
         return_list.append(current_dict)
     # 返回json化的字典列表
     return make_response(jsonify(return_list))
-
+#这段代码定义了一个路由函数
+# 当访问 "/location" 路径时，将会执行这个函数。
+# 具体实现中，它从 SQLite 数据库中查询所有的自助餐厅信息，将每个自助餐厅的信息封装为一个字典，并将这些字典组成一个列表返回。
+# 最后，使用 Flask 中的 make_response() 和 jsonify() 函数将这个列表转换为 JSON 格式，并将其作为响应返回给客户端。
 @app.route('/login',methods=['POST'])
 def login():
     data = request.json
@@ -65,7 +68,12 @@ def login():
                 'message' : "Login Failed."
             }
         ), 403)
-
+#这段代码定义了一个路由函数
+# 当客户端通过 POST 方法访问 "/login" 路径时，将会执行这个函数。
+# 具体实现中，它首先从请求的 JSON 数据中获取到登录信息，包括用户 ID 和密码。
+# 使用 SQLAlchemy 进行查询，判断这个用户是否存在，以及密码是否匹配。
+# 如果匹配成功，使用 jwt.encode() 函数生成一个 JSON Web Token，并将其作为响应返回给客户端。
+# 如果匹配失败，则返回一个状态码为 403 的响应，并在其中包含一条消息说明登录失败。
     
 
 @app.route('/update', methods = ["PUT"])
@@ -94,4 +102,12 @@ def update_cafeteria(cafeteria):
                 'message' : "Update successfully."
             }
         ), 201)
-    
+#这段代码是一个 Flask 应用中的路由函数，处理的是客户端对 /update 路径发起的 PUT 请求
+# 这个路由函数使用了装饰器 @token_required，用于对客户端的请求进行身份验证。
+# 如果客户端传来的 token 无效，则返回一个 HTTP 状态码为 401 的错误响应。
+#如果客户端的 token 通过了身份验证，那么路由函数就会从请求中读取 JSON 格式的数据，并将其解析为 Python 字典对象 updated_info。
+# 接下来，路由函数会根据客户端传来的数据更新一个指定的自助餐厅对象 cafeteria 的属性。
+# 这里的 cafeteria 参数实际上是 @token_required 装饰器从客户端传来的 token 中解码出的自助餐厅对象。
+#更新完自助餐厅对象的属性之后，路由函数会将其写回到数据库中，并返回一个 HTTP 状态码为 201 的响应，表示更新成功。
+# 如果写入数据库失败，则返回一个 HTTP 状态码为 403 的错误响应，表示更新失败。
+# 最终，客户端会收到一个 JSON 格式的响应，包含一个键为 message 的字段，用于指示更新操作的结果。

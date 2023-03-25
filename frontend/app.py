@@ -3,48 +3,65 @@ from flask import render_template, redirect, make_response
 import requests
 import json
 from model import Cafeteria
+# 初始化 Flask 应用
 app = Flask(__name__)
+# 设置应用的密钥，用于加密会话数据
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
-centerIndex = -1 # 地图的中心，是自助餐厅的ID，地图将以这家自助餐厅为中心，如果是-1，则以山东工商学院为中心
-proxy = "http://127.0.0.1:8080" # 后端 API
+
+# centerIndex 为地图中心的索引值，默认为 -1，表示以山东工商学院为中心
+centerIndex = -1
+
+# 后端 API 的地址，代理用于处理与后端的通信
+proxy = "http://127.0.0.1:8080"
+
+# 存储登录的 token
 token = ""
 # 从后端获取数据，从中创建自助餐厅对象列表 
  # return：餐厅对象列表 
+# 从后端获取数据，创建自助餐厅对象列表
+# 返回值：餐厅对象列表
 def create_object():
     try:
+        # 获取自助餐厅信息的响应
         response = requests.get(proxy+"/location").text
     except:
+        # 如果获取失败，返回一个空列表
         response = "[]"
+    # 将 JSON 字符串解析为字典列表
     dict_list = json.loads(response)
     cafeterias = []
+    # 根据字典创建自助餐厅对象，并添加到列表中
     for c_dict in dict_list: 
         cafeterias.append(Cafeteria(c_dict))
+    # 打印餐厅列表
     print(cafeterias)
     return cafeterias
 
-#重定向到地图
+# 重定向到地图页面
 @app.route("/")
 def index():
-    return redirect("/map")
+    return redirect("/map") 
 
-# render the map page
+# 渲染地图页面
 @app.route("/map", methods=['GET', 'POST'])
 def map():
-    # 获取centerIndex，查看是否需要在某个自助餐厅居中
+    # 获取 centerIndex，查看是否需要在某个自助餐厅居中
     global centerIndex
     centerIndex = int(request.args.get("highlight","-1"))
     response = make_response(render_template("map.html"))
+    # 允许跨域访问
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-# 处理餐厅对象列表，将它们分类成dict，然后用dict渲染dashboard页面
+# 处理餐厅对象列表，将它们分类成 dict，然后用 dict 渲染 dashboard 页面
 @app.route("/dashboard",methods=['GET','POST'])
 def table():
+    # 创建餐厅对象列表
     cafeterias = create_object()
+    # 分类
     cafes = []
     dinings = []
     fasts = []
-    # 根据类型对餐厅进行分类
     for c in cafeterias:
         if c.type == "Cafe":
             cafes.append(c)
@@ -52,9 +69,10 @@ def table():
             dinings.append(c)
         elif c.type == "Fast Food":
             fasts.append(c)
+    # 将分类结果存储到字典中，用于在页面上渲染
     type_dict = {
         "快餐" : fasts,
-        "咖啡厅"      : cafes,
+        "咖啡厅" : cafes,
         "食堂":dinings
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
