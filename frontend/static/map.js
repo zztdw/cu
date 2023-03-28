@@ -1,61 +1,55 @@
-let map = null; //映射对象
-var center = {lat:37.48136592227171,  lng:121.44883175667697} //初始化时地图的中心
-var zoom = 16 //地图的缩放（比例）
-//代码审查：关于 flask route api 的评论
-let locationUrl = "/locations" //这是 flask 应用的 api 路由，详细信息见 app.py
-let highlightUrl = "/highlight" //这是 flask 应用的 api 路由，详细信息见 app.py
-let highlighted = -1
-let markers = [] // list of markers
-let cafeterias = [] // list of cafeteria object
+//定义一个映射对象并初始化为空
+let map = null;
+//定义一个包含地图中心经纬度信息的对象
+var center = {lat:37.48136592227171, lng:121.44883175667697}
+//定义地图的缩放比例
+var zoom = 16
+//定义 flask 应用的 api 路由
+let locationUrl = "/locations"
+let highlightUrl = "/highlight"
+//初始化一些变量
+let highlighted = -1 //用于记录当前高亮的自助餐厅的下标，初始值为-1
+let markers = [] //标记点的列表
+let cafeterias = [] //自助餐厅对象的列表
 
-//代码审查：关于输入和输出的注释
-//从获取的数据创建对象
-//输入：从json文件解析出来的数据结构
-//返回：一个包含属性的自助餐厅对象
+//定义一个函数用于创建自助餐厅对象
 function createObject(data) {
-    let id = data.id;
-    let name = data.name;
-    let location = { lat: parseFloat(data.coords_lat), lng: parseFloat(data.coords_lon)};
-    let open_time = data.hours_open;
-    let close_time = data.hours_closed;
-    let status = data.status;
-    let wait_times = data.wait_times
-    let type = "Fast Food"
-    if (data.type){
-        type = data.type
-    }
-    let icon = "burger"
-    if( type == "Dining"){
-        icon = "utensils"
-    }
-    if (type == "Cafe"){
-        icon = "coffee"
-    }
-    let crowd = "high"
-    if (wait_times == "< 5 min") {
-        crowd = 'low'
-    }
-    if (wait_times == "5 - 15 min"){
-        crowd = 'medium'
-    }
-    if (status == "Closed") {
-        crowd = 'closed'
-    }
-    return {
-        id: id,
-        name: name,
-        status: status,
-        wait_times: wait_times,
-        type: type,
-        icon: icon,
-        open: open_time,
-        close: close_time,
-        crowd: crowd,
-        location: location
-    }
+let id = data.id; //自助餐厅id
+let name = data.name; //自助餐厅名称
+let location = { lat: parseFloat(data.coords_lat), lng: parseFloat(data.coords_lon)}; //自助餐厅位置经纬度
+let open_time = data.hours_open; //自助餐厅营业开始时间
+let close_time = data.hours_closed; //自助餐厅营业结束时间
+let status = data.status; //自助餐厅营业状态
+let wait_times = data.wait_times //自助餐厅等待时间
+let type = "Fast Food" //自助餐厅类型，默认为快餐
+if (data.type){
+type = data.type //如果有自助餐厅类型，使用该类型
 }
-
-
+let icon = "burger" //自助餐厅标记点的图标，初始为汉堡图标
+if( type == "Dining"){
+icon = "utensils" //如果是正餐餐厅，使用餐具图标
+}
+if (type == "Cafe"){
+icon = "coffee" //如果是咖啡厅，使用咖啡图标
+}
+let crowd = "high" //自助餐厅拥挤程度，默认为高
+if (wait_times == "< 5 min") { crowd = 'low' } //如果等待时间小于5分钟，拥挤程度为低
+if (wait_times == "5 - 15 min"){ crowd = 'medium' } //如果等待时间在5-15分钟之间，拥挤程度为中
+if (status == "Closed") { crowd = 'closed' } //如果自助餐厅已关闭，拥挤程度为关闭
+//返回包含自助餐厅信息的对象
+return {
+id: id,
+name: name,
+status: status,
+wait_times: wait_times,
+type: type,
+icon: icon,
+open: open_time,
+close: close_time,
+crowd: crowd,
+location: location
+}
+}
 
 //向地图添加标记的函数
 function addMarker(cafeterias) {
@@ -120,7 +114,14 @@ function buildContent(cafeteria) {
         `;
     return content;
 }
-
+//addMarker(cafeterias): 这个函数的作用是将餐厅的信息cafeterias添加到地图上，每个餐厅都会有一个标记。
+//在for循环中，对于cafeterias中的每一个元素
+//都会调用new google.maps.marker.AdvancedMarkerView创建一个新的标记对象，并将它存储在markers数组中但此时还没有将其添加到地图上。
+//highlight(markerView)和unhighlight(markerView): 这两个函数用于在标记上应用高亮效果和取消高亮效果。
+//当指针进入标记时，highlight函数会使标记突出显示；当指针离开标记时，unhighlight函数会使标记取消突出显示。
+//buildContent(cafeteria): 这个函数用于创建每个标记的内容，返回一个相对 DOM 元素
+//该函数使用 cafeterias 的数据来创建包含有关餐厅的详细信息的元素，如名称、等待时间、开放时间、关闭时间和状态
+//然后，使用这些信息创建一个包含 HTML 代码的字符串，并将其分配给新创建的 div 元素的innerHTML属性。最后，将这个 div 元素返回给调用者，用于添加到标记中。
 //在地图中显示给定的制造商
 function setMarkerOn(marker) {
     marker.map = map;
