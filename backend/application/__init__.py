@@ -1,5 +1,3 @@
-
-
 # 导入 Flask 模块
 from flask import Flask
 # 导入 SQLAlchemy 相关模块
@@ -14,7 +12,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 # 创建数据库引擎对象，指定 SQLite 数据库文件的位置，并设置 check_same_thread=False 参数避免多线程问题
-db_engine = create_engine('sqlite:///db.sqlite?check_same_thread=False')
+db_engine = create_engine('sqlite:////Users/zztdw/Desktop/zzt‘s BiYeSheJi/cu/backend/db.sqlite', connect_args={'check_same_thread': False})
+
 # 创建自动映射基类对象
 Base = automap_base()
 # 使用 Base.prepare() 方法将数据库表格映射为 Python 类，并将映射好的类附加到 Base 对象上

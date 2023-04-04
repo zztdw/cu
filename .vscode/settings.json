@@ -1,3 +1,5 @@
 {
-    "commentTranslate.source": "Google"
+    "commentTranslate.source": "Google",
+    "sqltools.connections": [],
+    "sqltools.useNodeRuntime": true
 }
