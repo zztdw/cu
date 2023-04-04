@@ -3,16 +3,6 @@ from flask import render_template, redirect, make_response
 import requests
 import json
 from model import Cafeteria
-#这段代码是一个Python Flask应用程序的入口文件，它首先导入了一些必要的依赖库：
-# Flask：是一个轻量级的Web应用框架，提供了构建Web应用所需的基本功能。
-# jsonify：将数据转换为JSON格式的工具。
-# request：处理HTTP请求的工具。
-# flash、url_for、render_template、redirect、make_response：用于渲染HTML模板和处理HTTP响应的工具。
-# requests：用于处理HTTP请求的Python库。
-# json：用于处理JSON数据的Python库。
-# Cafeteria：自定义的模型类，用于表示餐厅。
-# 接下来，代码创建了一个Flask应用实例，其名称由__name__变量确定。此应用程序是Python Flask Web应用程序的基础。此应用程序的功能在后续的代码中定义和实现。
-# 初始化 Flask 应用
 app = Flask(__name__)
 # 设置应用的密钥，用于加密会话数据
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
@@ -51,10 +41,8 @@ def create_object():
     # 将 JSON 字符串解析为字典列表
     dict_list = json.loads(response)
     cafeterias = []
-    # 根据字典创建自助餐厅对象，并添加到列表中
-    for c_dict in dict_list: 
+    for c_dict in dict_list:
         cafeterias.append(Cafeteria(c_dict))
-    # 打印餐厅列表
     print(cafeterias)
     return cafeterias
 #
@@ -305,10 +293,10 @@ def login():
         'Accept': 'application/json',  # 客户端接受的响应类型是JSON
         'Content-Type': 'application/json'  # 客户端发送的请求类型是JSON
         }
-    print(body)  # 打印请求体
-    response = requests.post(url=url, headers=headers, json=body)  # 发送POST请求
-    if response.status_code != 200:  # 如果响应状态码不是200
-        return make_response(jsonify(  # 构造响应对象，返回HTTP 404响应
+    print(body)
+    response = requests.post(url=url, headers=headers, json=body)
+    if response.status_code != 200:
+        return make_response(jsonify(
             {
                 'message' : "Login Failed."  # 错误信息
             }
