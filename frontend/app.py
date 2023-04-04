@@ -3,6 +3,7 @@ from flask import render_template, redirect, make_response
 import requests
 import json
 from model import Cafeteria
+# 初始化 Flask 应用
 app = Flask(__name__)
 # 设置应用的密钥，用于加密会话数据
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba250'
@@ -139,25 +140,19 @@ def table():
 @app.route("/home/<cafe_id>")
 def home(cafe_id):
     global token
-    # 发送 HTTP GET 请求，验证登录令牌和餐厅 ID 的有效性
     response = requests.get(url=proxy+"/verify?token="+token+"&id="+str(cafe_id))
-    # 如果验证失败，则清除登录令牌并显示拒绝访问页面
     if response.status_code != 200:
         token = ""
         return make_response(render_template('denied.html'))
-    # 加载所有餐厅数据
     cafeterias = create_object()
-    # 查找当前餐厅 ID 对应的餐厅数据
     selected_cafe = None
     for cafeteria in cafeterias:
         if int(cafeteria.id) == int(cafe_id):
             selected_cafe = cafeteria
-    # 如果找不到当前餐厅 ID 对应的餐厅数据，则返回 403 错误
     if not selected_cafe:
         return make_response("Invalid cafeteria id.", 403)
     # 渲染工作页面，并传递当前餐厅数据和代理服务器的 URL 参数
     return make_response(render_template("worker.html", cafeteria=selected_cafe, proxy=proxy))
-
 #该路由函数通过 Flask 的装饰器语法 @app.route("/home/<cafe_id>") 来定义了一个 URL，
 # 其中 <cafe_id> 是一个 URL 变量，用于接收在 URL 中传递的参数。
 # 当请求该 URL 时，Flask 将会调用该路由函数，并将 URL 变量 cafe_id 的值作为参数传递给函数。
@@ -166,8 +161,6 @@ def home(cafe_id):
 #如果验证通过，则加载所有餐厅数据，并查找当前餐厅 ID 对应的餐厅数据。
 # 如果找不到当前餐厅 ID 对应的餐厅数据，则返回 403 错误。
 #最后，该函数使用 Flask 的 render_template 函数渲染工作页面，并将当前餐厅数据和代理服务器的 URL 参数传递给该页面。
-############################################
-#这段代码定义了一个路由，当访问 "/home/<cafe_id>" 时会执行对应的函数 "home(cafe_id)"，其中 "<cafe_id>" 是一个动态参数，表示餐厅的 ID。函数的主要逻辑如下：
 
 #发送 HTTP GET 请求到代理服务器，验证登录令牌和餐厅 ID 的有效性。
 #如果验证失败，则清除登录令牌并显示拒绝访问页面。
@@ -188,19 +181,14 @@ def home(cafe_id):
 # 工作页面将通过传递一些查询字符串来调用此 API
 @app.route("/location/<cafe_id>",methods=['GET'])
 def update(cafe_id):
-    # 调用 create_object() 函数创建 cafeterias 列表
     cafeterias = create_object()
-    # 初始化变量 changed_cafe，后面会被用来存储找到的咖啡店对象
     changed_cafe = None
     # 检查 cafe_id 是否有效
     for cafeteria in cafeterias:
-        # 如果找到一个 id 属性与传入的 cafe_id 相等的咖啡店对象，将其赋值给 changed_cafe
         if cafeteria.id == int(cafe_id):
             changed_cafe = cafeteria
-    # 如果 changed_cafe 为空，则表示传入的 cafe_id 无效，返回 403 状态码和错误消息
     if not changed_cafe:
         return make_response("Invalid cafeteria id.", 403)
-    # 如果 changed_cafe 不为空，则将 wait_dict 字典中的等待时间字符串映射到真实的等待时间值
     # 将数据发送到后端
     wait_dict = {
         "lt5min" : "< 5 min",
@@ -239,19 +227,6 @@ def update(cafe_id):
 #由于后端没有给出有效的响应，因此代码中不返回响应内容。
 
 
-#################################################
-#这段代码定义了一个 update 路由函数，其作用是接受来自前端的 GET 请求并更新餐厅的状态信息。该函数的执行逻辑如下：
-#调用 create_object() 函数创建 cafeterias 列表，用于存储所有的餐厅对象。
-#遍历 cafeterias 列表，查找与传入的 cafe_id 相等的餐厅对象，并将其赋值给变量 changed_cafe。
-#如果 changed_cafe 为空，则表示传入的 cafe_id 无效，返回 HTTP 状态码 403 和错误消息。
-#如果 changed_cafe 不为空，则使用字典 wait_dict 将前端传入的等待时间字符串映射到真实的等待时间值，并将其赋值给 changed_cafe.wait_times 属性。
-#同样地，将前端传入的状态字符串赋值给 changed_cafe.status 属性。
-#将 changed_cafe 对象转化为 JSON 格式，并使用 HTTP PUT 请求将其发送到后端服务器。
-#返回字符串 "Done"，表示更新已完成。
-#注意，该函数使用了全局变量 token 和 proxy，因此在函数执行之前需要先设置它们的值。另外，该函数只能处理 GET 请求，如果收到 POST 请求或其他类型的请求，则会抛出 HTTP 405 错误。
-#################################################
-
-
 # 这将由dashboard页面调用以分配地图中心
 @app.route("/highlight", methods = ['GET','POST'])
 def highlight():
@@ -270,12 +245,7 @@ def highlight():
 # 然后将 centerIndex 的值重置为 -1，以便下次请求时能够正常处理。
 # 最后，将 JSON 格式的响应返回给客户端。   
 
-###################################
-#这段代码定义了一个名为 "highlight" 的路由，可以处理 GET 和 POST 请求。
-# 它首先使用全局变量 centerIndex 创建一个 JSON 响应，然后将 centerIndex 设置为默认值 -1。
-# 这个全局变量用于标记当前突出显示的餐厅在列表中的位置。
-# 这段代码的作用是将当前选定的餐厅重新设置为默认值，以便在下一次请求时重新选择要突出显示的餐厅。
-###################################
+
 
 
 
@@ -286,42 +256,27 @@ def highlight():
 # 就会调用login()函数进行处理。
 @app.route('/login',methods = ['POST'])  # 将路由'/login'与login()函数绑定，当接收到POST请求并且路由与'/login'匹配时，调用login()函数进行处理。
 def login():
-    global token  # 定义全局变量token
-    body = request.json  # 从请求对象中获取JSON格式的请求体，存储到变量body中
-    url = proxy+ "/login"  # 拼接请求URL
-    headers = {  # 定义请求头
-        'Accept': 'application/json',  # 客户端接受的响应类型是JSON
-        'Content-Type': 'application/json'  # 客户端发送的请求类型是JSON
+    global token
+    body = request.json
+    url = proxy+ "/login"
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
         }
     print(body)
     response = requests.post(url=url, headers=headers, json=body)
     if response.status_code != 200:
         return make_response(jsonify(
             {
-                'message' : "Login Failed."  # 错误信息
+                'message' : "Login Failed."
             }
         ), 404)
-    token = response.json()['token']  # 从响应体中获取token并存储到全局变量token中
-    return make_response(jsonify(  # 构造响应对象，返回HTTP 200响应
+    token = response.json()['token']
+    return make_response(jsonify(
             {
-                'message' : "Login Successfully."  # 成功信息
+                'message' : "Login Successfully."
             }
         ), 200)
-
-###########################
-#这段代码实现了一个登录功能。
-# 当接收到POST请求并且路由与'/login'匹配时，调用login()函数进行处理。
-# login()函数首先从请求对象中获取JSON格式的请求体，存储到变量body中。
-# 然后构造请求头，定义了客户端接受的响应类型是JSON，客户端发送的请求类型是JSON。
-# 接着，使用requests库发送POST请求到后端的/login路由，并传递请求体和请求头，返回响应对象response。
-# 如果响应状态码不是200，构造响应对象，返回HTTP 404响应，包含错误信息"Login Failed."。
-# 如果响应状态码是200，则从响应体中获取token并存储到全局变量token中。
-# 最后，构造响应对象，返回HTTP 200响应，包含成功信息"Login Successfully."。
-###########################
-
-
-
-
 
 # 用于登出的API路由
 @app.route('/logout')
@@ -330,27 +285,19 @@ def logout():
     token = ""
     return make_response(jsonify(
             {
-                'message' : "退出成功。"
+                'message' : "Logout Successfully."
             }
         ), 200)
 
-##################
-#这段代码定义了一个名为 logout() 的函数，并将其绑定到路由 /logout 上，当接收到 HTTP GET 请求并且路由与 /logout 匹配时，调用该函数进行处理。
-#该函数将全局变量 token 的值置为空字符串，表示当前用户已经退出登录。
-# 然后构造一个 JSON 格式的响应消息，包含键名为 'message'，键值为退出成功的消息。
-# 最后将该响应消息封装到 HTTP 200 响应对象中，并返回给客户端。
 # API路由，以提供自助餐厅位置的JSON文件
-##################
-
 @app.route("/locations", methods = ['GET','POST'])
 def locations():
-    # 创建一个自助餐厅对象列表
     cafeterias = create_object()
     dict_list = []
     # 获取自助餐厅属性的dict列表
     for c in cafeterias:
         dict_list.append(c.getAttr())
-    # 将dict列表转换为JSON并返回
+    #  JSON化并返回
     return jsonify(dict_list)
 #########################
 #这段代码实现了一个用于获取自助餐厅属性的API接口。
