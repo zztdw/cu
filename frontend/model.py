@@ -24,6 +24,7 @@ class Cafeteria:
         self.coords_lat = info.get("coords_lat","0")
         self.coords_lon = info.get("coords_lon","0")
         self.type =  info.get("type", "Fast Food")
+        self.tele =  info.get("tele", "88888888")
         
     #该函数将返回一个字典，其中包含该类的所有属性
     def getAttr(self):
