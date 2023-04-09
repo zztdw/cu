@@ -119,7 +119,7 @@ def table():
     # 将分类结果存储到字典中，用于在页面上渲染
     type_dict = {
         "快餐" : fasts,
-        "咖啡厅" : cafes,
+        "饮品店" : cafes,
         "食堂":dinings
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))

@@ -24,8 +24,8 @@ var x = setInterval(function() {
 //如果倒计时结束，发送提醒
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("timer").innerHTML = "EXPIRED";
-    window.alert("Please update time!");
+    document.getElementById("timer").innerHTML = "时间过期";
+    window.alert("请更新等待时间!");
 
   }
 }, 1000);

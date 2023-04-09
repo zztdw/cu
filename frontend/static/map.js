@@ -112,10 +112,10 @@ function buildContent(cafeteria) {
         </div>
         <div class="details">
             <div class="name">${cafeteria.name}</div>
-            <div class="wait">Estimate: ${cafeteria.wait_times}</div>
-            <div class="wait">Open: ${cafeteria.open}</div>
-            <div class="wait">Close: ${cafeteria.close}</div>
-            <div class="wait">Status: ${cafeteria.status}</div>
+            <div class="wait">等待时间: ${cafeteria.wait_times}</div>
+            <div class="wait">营业时间: ${cafeteria.open}</div>
+            <div class="wait">闭店时间: ${cafeteria.close}</div>
+            <div class="wait">状态: ${cafeteria.status}</div>
         </div>
         `;
     return content;

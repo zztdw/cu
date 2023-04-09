@@ -39,16 +39,15 @@
                                 <div class="container-fluid gap-4">
                                     <div class="row">
                                         <ul class="list-group">
-                                            <li class="list-group-item">Address: {{cafeteria.address}}</li>
-                                            <li class="list-group-item">Time: {{cafeteria.hours_open[:5]}}-{{cafeteria.hours_closed[:5]}}</li>
-                                            <li class="list-group-item">Latitude: {{cafeteria.coords_lat[:7]}}</li>
-                                            <li class="list-group-item">Longitude: {{cafeteria.coords_lon[:7]}}</li>
+                                            <li class="list-group-item">地址: {{cafeteria.address}}</li>
+                                            <li class="list-group-item">营业时间: {{cafeteria.hours_open[:5]}}-{{cafeteria.hours_closed[:5]}}</li>
+                                            <li class="list-group-item">经纬度: {{cafeteria.coords_lat[:7]}} , {{cafeteria.coords_lon[:7]}}</li>
                                         </ul>
                                     </div>
                                     <div class="row">
                                         <div class="btn-group" role="group">
-                                            <a type="button" class="btn btn-outline-primary" href="/map?highlight={{cafeteria.id}}">Show On Map</a>
-                                            <a type="button" class="btn btn-outline-success" onClick="login('{{cafeteria.id}}')">You're Worker?</a>
+                                            <a type="button" class="btn btn-outline-primary" href="/map?highlight={{cafeteria.id}}">地图显示</a>
+                                            <a type="button" class="btn btn-outline-success" onClick="login('{{cafeteria.id}}')">员工界面</a>
                                           </div>
                                     </div>
                                 </div>
@@ -68,7 +67,7 @@
     <script>
         async function login(cafeteria_id){
             let id = parseInt(cafeteria_id)
-            let password = prompt("Enter the password");
+            let password = prompt("输入密码");
             let response = fetch('/login', {
                 method: 'POST',
                 headers: {
@@ -78,7 +77,7 @@
                 body: JSON.stringify({ "id": cafeteria_id, "password": password })
             }).then(response=>{
                 if(response.status == 404){
-                    alert("Your password is incorrect.")
+                    alert("密码不正确")
                 }
                 else{
                     window.location.href = "/home/"+cafeteria_id;
