@@ -76,32 +76,40 @@ def login():
 # 如果匹配失败，则返回一个状态码为 403 的响应，并在其中包含一条消息说明登录失败。
     
 
-@app.route('/update', methods = ["PUT"])
+# 定义一个API路由函数，允许HTTP方法为PUT请求
+@app.route('/update', methods=["PUT"])
+# 在路由函数之前定义的装饰器，用于对函数进行认证和授权
 @token_required
+# 传入餐厅对象，用于更新
 def update_cafeteria(cafeteria):
+    # 从请求中获取JSON数据并解析成Python对象
     updated_info = json.loads(request.json)
+    # 更新餐厅对象的名称
     cafeteria.name = updated_info['name']
+    # 更新餐厅对象的地址
     cafeteria.address = updated_info['address']
+    # 更新餐厅对象的营业开始时间
     cafeteria.hours_open = updated_info['hours_open']
+    # 更新餐厅对象的营业结束时间
     cafeteria.hours_closed = updated_info['hours_closed']
+    # 更新餐厅对象的状态
     cafeteria.status = updated_info['status']
+    # 更新餐厅对象的等待时间
     cafeteria.wait_times = updated_info['wait_times']
+    # 更新餐厅对象的纬度
     cafeteria.coords_lat = updated_info['coords_lat']
+    # 更新餐厅对象的经度
     cafeteria.coords_lon = updated_info['coords_lon']
+    # 更新餐厅对象的类型
     cafeteria.type = updated_info['type']
+    # 试图提交更改到数据库中
     try:
         session.commit()
+    # 如果提交更改失败，则返回错误的HTTP响应状态码
     except:
-        return make_response(jsonify(
-            {
-                'message' : "Update failed."
-            }
-        ), 403)
-    return make_response(jsonify(
-            {
-                'message' : "Update successfully."
-            }
-        ), 201)
+        return make_response(jsonify({'message': "Update failed."}), 403)
+    # 如果提交更改成功，则返回成功的HTTP响应状态码
+    return make_response(jsonify({'message': "Update successfully."}), 201)
 #这段代码是一个 Flask 应用中的路由函数，处理的是客户端对 /update 路径发起的 PUT 请求
 # 这个路由函数使用了装饰器 @token_required，用于对客户端的请求进行身份验证。
 # 如果客户端传来的 token 无效，则返回一个 HTTP 状态码为 401 的错误响应。
