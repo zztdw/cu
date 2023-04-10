@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>My Page</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Welcome to my page!</h1>
+        <p>Here you can find some interesting information about me.</p>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>My Hobbies</h2>
+                <ul>
+                    <li>Playing guitar</li>
+                    <li>Reading books</li>
+                    <li>Watching movies</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h2>My Skills</h2>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary">Contact Me</button>
+    </div>
+{% endblock %}

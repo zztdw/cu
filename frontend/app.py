@@ -46,7 +46,8 @@ def create_object():
         cafeterias.append(Cafeteria(c_dict))
     print(cafeterias)
     return cafeterias
-#
+#、
+
 
 ############################################
 #这段代码定义了一个函数create_object()，
@@ -306,7 +307,11 @@ def locations():
 # 最后，locations()函数将这个列表转换为JSON格式并返回给客户端。
 #如果客户端发送了POST请求到路径"/locations"，则会执行相同的逻辑，并返回JSON格式的自助餐厅属性列表。
 #########################
+@app.route("/data")
+def data():
 
+    # 渲染工作页面，并传递当前餐厅数据和代理服务器的 URL 参数
+    return make_response(render_template("data.html"))
 
 
 if __name__ == '__main__':
