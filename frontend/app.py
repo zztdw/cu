@@ -16,6 +16,7 @@ proxy = "http://127.0.0.1:8080"
 
 # 存储登录的 token
 token = ""
+cafeteria_id = None
 # 从后端获取数据，从中创建自助餐厅对象列表 
  # return：餐厅对象列表 
 # 从后端获取数据，创建自助餐厅对象列表
@@ -44,7 +45,6 @@ def create_object():
     cafeterias = []
     for c_dict in dict_list:
         cafeterias.append(Cafeteria(c_dict))
-    print(cafeterias)
     return cafeterias
 #、
 
@@ -138,17 +138,19 @@ def table():
 
 
 # 从餐厅的 ID 渲染工作页面
-@app.route("/home/<cafe_id>")
-def home(cafe_id):
+@app.route("/home")
+def home():
     global token
-    response = requests.get(url=proxy+"/verify?token="+token+"&id="+str(cafe_id))
+    global cafeteria_id
+    response = requests.get(url=proxy+"/verify?token="+token+"&id="+str(cafeteria_id))
     if response.status_code != 200:
         token = ""
+        cafeteria_id = None
         return make_response(render_template('denied.html'))
     cafeterias = create_object()
     selected_cafe = None
     for cafeteria in cafeterias:
-        if int(cafeteria.id) == int(cafe_id):
+        if int(cafeteria.id) == int(cafeteria_id):
             selected_cafe = cafeteria
     if not selected_cafe:
         return make_response("Invalid cafeteria id.", 403)
@@ -258,26 +260,19 @@ def highlight():
 @app.route('/login',methods = ['POST'])  # 将路由'/login'与login()函数绑定，当接收到POST请求并且路由与'/login'匹配时，调用login()函数进行处理。
 def login():
     global token
-    body = request.json
+    global cafeteria_id
+    body = request.form
     url = proxy+ "/login"
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         }
-    print(body)
     response = requests.post(url=url, headers=headers, json=body)
     if response.status_code != 200:
-        return make_response(jsonify(
-            {
-                'message' : "Login Failed."
-            }
-        ), 404)
+        return redirect(url_for(".workerlogin", messages = json.dumps({"main":"Login failed on page baz"})))
     token = response.json()['token']
-    return make_response(jsonify(
-            {
-                'message' : "Login Successfully."
-            }
-        ), 200)
+    cafeteria_id = body['id']
+    return redirect(f"/home")
 
 # 用于登出的API路由
 @app.route('/logout')
@@ -307,29 +302,16 @@ def locations():
 # 最后，locations()函数将这个列表转换为JSON格式并返回给客户端。
 #如果客户端发送了POST请求到路径"/locations"，则会执行相同的逻辑，并返回JSON格式的自助餐厅属性列表。
 #########################
-@app.route("/data",methods=['GET','POST'])
-def data():
+@app.route("/workerlogin",methods=['GET','POST'])
+def workerlogin():
+    global token
+    if token != "":
+        return redirect("/home")
     # 创建餐厅对象列表
-    cafeterias = create_object()
-    # 分类
-    cafes = []
-    dinings = []
-    fasts = []
-    for c in cafeterias:
-        if c.type == "Cafe":
-            cafes.append(c)
-        elif c.type == "Dining":
-            dinings.append(c)
-        elif c.type == "Fast Food":
-            fasts.append(c)
-    # 将分类结果存储到字典中，用于在页面上渲染
-    type_dict = {
-        "快餐" : fasts,
-        "饮品店" : cafes,
-        "食堂":dinings
-    }
-
-    return make_response(render_template("data.html", type_dict = type_dict))
+    cafeteria = create_object()
+    if 'messages' in request.args:
+        return make_response(render_template("login.html", cafeterias = cafeteria, failed = True))
+    return make_response(render_template("login.html", cafeterias = cafeteria, failed = False))
 
 
 

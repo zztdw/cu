@@ -6,23 +6,34 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-lg-4">
+                {% if failed %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>密码错误</strong> 请重新登录或以游客继续。
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title text-center mb-4">餐厅登录</h5>
-                        <form method="POST">
+                        <form method="POST" action="./login">
                             {% if error %}
                                 <div class="alert alert-danger">{{ error }}</div>
                             {% endif %}
                             <div class="mb-3">
-                                <label for="username" class="form-label">餐厅名称</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <label for="username" class="form-label">选择你的餐厅</label>
+                                <select class="form-select" aria-label="Default select example" name="id">
+                                    <option selected>点此选择</option>
+                                    {% for cafeteria in cafeterias %}
+                                    <option value="{{cafeteria.id}}" >{{cafeteria.name}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">密码</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary" onclick="login('{{cafeteria.id}}')">登录</button>
+                                <button type="submit" class="btn btn-primary">登录</button>
                             </div>
                         </form>
                     </div>
@@ -34,26 +45,6 @@
 
 {% block script %}
     <script>
-        async function login(cafeteria_id){
-            let id = parseInt(cafeteria_id)
-            let password = prompt("输入密码");
-            let response = fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "id": cafeteria_id, "password": password })
-            }).then(response=>{
-                if(response.status == 404){
-                    alert("密码不正确")
-                }
-                else{
-                    window.location.href = "/home/"+cafeteria_id;
-                }
-            })
-            
-            
-        }
+        
     </script>
 {% endblock %}

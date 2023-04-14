@@ -18,8 +18,6 @@ def token_required(f):
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'],"HS256")
             cafeteria = session.query(Cafeteria).filter(Cafeteria.id == data['id']).first()
-            if cafeteria.id != id:
-                return make_response("Token and id don't match.", 403)
         except:
             return make_response('Token is invalid', 403)
         return f(cafeteria, *args, **kwargs)
