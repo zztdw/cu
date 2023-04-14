@@ -161,3 +161,9 @@ body {
     margin-right: 0;
   }
 }
+
+.my-custom-class {
+  max-width: 500px; /* 修改最大宽度 */
+  margin: 4 auto; /* 让容器元素水平居中 */
+  padding: 20px; /* 修改内边距 */
+}

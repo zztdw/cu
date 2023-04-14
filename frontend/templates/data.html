@@ -1,31 +1,59 @@
 {% extends 'base.html' %}
-
 {% block head %}
-    <title>My Page</title>
+    <title>Data</title>
 {% endblock %}
-
 {% block body %}
     <div class="container">
-        <h1>Welcome to my page!</h1>
-        <p>Here you can find some interesting information about me.</p>
-        <div class="row">
-            <div class="col-sm-6">
-                <h2>My Hobbies</h2>
-                <ul>
-                    <li>Playing guitar</li>
-                    <li>Reading books</li>
-                    <li>Watching movies</li>
-                </ul>
-            </div>
-            <div class="col-sm-6">
-                <h2>My Skills</h2>
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                </ul>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4">餐厅登录</h5>
+                        <form method="POST">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error }}</div>
+                            {% endif %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">餐厅名称</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">密码</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary" onclick="login('{{cafeteria.id}}')">登录</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="btn btn-primary">Contact Me</button>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        async function login(cafeteria_id){
+            let id = parseInt(cafeteria_id)
+            let password = prompt("输入密码");
+            let response = fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "id": cafeteria_id, "password": password })
+            }).then(response=>{
+                if(response.status == 404){
+                    alert("密码不正确")
+                }
+                else{
+                    window.location.href = "/home/"+cafeteria_id;
+                }
+            })
+            
+            
+        }
+    </script>
 {% endblock %}

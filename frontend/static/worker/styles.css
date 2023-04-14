@@ -118,3 +118,19 @@ input:checked + .slider {
 input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
+
+
+
+.my-search-form {
+  position: absolute;
+  top: 300;
+  right: 0;
+}
+
+.my-search-input {
+  width: 200px;
+}
+
+.my-search-button {
+  margin-left: 50px; /* 设置搜索按钮与搜索框之间的间距 */
+}

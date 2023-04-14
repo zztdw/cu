@@ -307,11 +307,31 @@ def locations():
 # 最后，locations()函数将这个列表转换为JSON格式并返回给客户端。
 #如果客户端发送了POST请求到路径"/locations"，则会执行相同的逻辑，并返回JSON格式的自助餐厅属性列表。
 #########################
-@app.route("/data")
+@app.route("/data",methods=['GET','POST'])
 def data():
+    # 创建餐厅对象列表
+    cafeterias = create_object()
+    # 分类
+    cafes = []
+    dinings = []
+    fasts = []
+    for c in cafeterias:
+        if c.type == "Cafe":
+            cafes.append(c)
+        elif c.type == "Dining":
+            dinings.append(c)
+        elif c.type == "Fast Food":
+            fasts.append(c)
+    # 将分类结果存储到字典中，用于在页面上渲染
+    type_dict = {
+        "快餐" : fasts,
+        "饮品店" : cafes,
+        "食堂":dinings
+    }
 
-    # 渲染工作页面，并传递当前餐厅数据和代理服务器的 URL 参数
-    return make_response(render_template("data.html"))
+    return make_response(render_template("data.html", type_dict = type_dict))
+
+
 
 
 if __name__ == '__main__':
