@@ -313,6 +313,26 @@ def workerlogin():
         return make_response(render_template("login.html", cafeterias = cafeteria, failed = True))
     return make_response(render_template("login.html", cafeterias = cafeteria, failed = False))
 
+@app.route("/JoininPage",methods=['GET','POST'])
+def Join():
+    global token
+    if token != "":
+        return redirect("/home")
+    # 创建餐厅对象列表
+    cafeteria = create_object()
+    
+    return make_response(render_template("joinin.html", cafeterias = cafeteria, failed = False))
+
+@app.route("/Test",methods=['GET','POST'])
+def Test():
+    global token
+    if token != "":
+        return redirect("/home")
+    # 创建餐厅对象列表
+    cafeteria = create_object()
+
+    
+    return make_response(render_template("test.html"))
 
 
 
