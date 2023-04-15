@@ -81,10 +81,15 @@ function addMarker(cafeterias) {
                 unhighlight(advancedMarkerView);
             });
         });
-        //添加事件监听器：当点击标记时，标记将取消高亮
-        advancedMarkerView.addListener("click", (event) => {
+        //添加事件监听器：当点击标记时，将跳转到餐厅的界面
+/*         advancedMarkerView.addListener("click", (event) => {
+            window.location.href = "/user";
             unhighlight(advancedMarkerView);
+        }); */
+        advancedMarkerView.addListener("click", (event) => {
+            window.location.href = "/user";
         });
+        
         markers.push(advancedMarkerView)
     }
 }

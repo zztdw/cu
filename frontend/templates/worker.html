@@ -67,41 +67,61 @@
 </footer>
 <script>
   //将 api 调用发送到 flask 应用程序，flask 最终将请求发送到后端
-  const state = async (checked) => {
-    if(checked){
-      const response = await fetch("/location/{{cafeteria.id}}?status=Open");
-    }
-    else{
-      const response = await fetch("/location/{{cafeteria.id}}?status=Closed");
-    }
+// 定义一个异步函数 state，传入 checked 参数
+const state = async (checked) => {
+  // 如果 checked 为真，发送请求到后端获取开餐厅状态
+  if(checked){
+    const response = await fetch("/location/{{cafeteria.id}}?status=Open");
   }
-  //将 api 调用发送到 flask 应用程序，flask 最终将请求发送到后端
-  async function changeWait(waittime){
-    if(waittime == "five"){
-      const response = await fetch("/location/{{cafeteria.id}}?wait_times=lt5min");
-    }
-    else if(waittime == 'fifteen'){
-      const response = await fetch("/location/{{cafeteria.id}}?wait_times=5-15min");
-    }
-    else{
-      const response = await fetch("/location/{{cafeteria.id}}?wait_times=gt20min");
-    }
+  // 否则发送请求到后端获取关餐厅状态
+  else{
+    const response = await fetch("/location/{{cafeteria.id}}?status=Closed");
   }
-  async function logout(){
-    const response = await fetch("/logout");
-    window.location.href = "/dashboard";
+}
+
+// 定义一个异步函数 changeWait，传入 waittime 参数
+async function changeWait(waittime){
+  // 如果 waittime 为 "five"，发送请求到后端获取小于 5 分钟的等待时间信息
+  if(waittime == "five"){
+    const response = await fetch("/location/{{cafeteria.id}}?wait_times=lt5min");
   }
-//获取 DOM 的当前状态并将状态发送到后端
-  async function changeState(){
-    let checked = $("#check").prop("checked")
-    state(checked)
+  // 如果 waittime 为 "fifteen"，发送请求到后端获取 5 到 15 分钟的等待时间信息
+  else if(waittime == 'fifteen'){
+    const response = await fetch("/location/{{cafeteria.id}}?wait_times=5-15min");
   }
- //添加事件监听器，每次点击和更改这些 DOM 时，都会发送请求
-  $('#five').click(()=>{changeWait("five")})
-  $('#fifteen').click(()=>{changeWait("fifteen")})
-  $('#twenty').click(()=>{changeWait("twenty")})
-  $("#check").change(changeState)
-  $("#logout").click(logout)
+  // 否则发送请求到后端获取大于 20 分钟的等待时间信息
+  else{
+    const response = await fetch("/location/{{cafeteria.id}}?wait_times=gt20min");
+  }
+}
+
+// 定义一个异步函数 logout
+async function logout(){
+  // 发送请求到后端注销
+  const response = await fetch("/logout");
+  // 重定向到 /dashboard 页面
+  window.location.href = "/dashboard";
+}
+
+// 定义一个异步函数 changeState
+async function changeState(){
+  // 获取具有 id 为 check 的元素的 checked 属性
+  let checked = $("#check").prop("checked")
+  // 调用 state 函数并传入 checked 参数
+  state(checked)
+}
+
+// 给具有 id 为 five 的元素添加点击事件监听器，调用 changeWait 函数并传入 "five" 参数
+$('#five').click(()=>{changeWait("five")})
+// 给具有 id 为 fifteen 的元素添加点击事件监听器，调用 changeWait 函数并传入 "fifteen" 参数
+$('#fifteen').click(()=>{changeWait("fifteen")})
+// 给具有 id 为 twenty 的元素添加点击事件监听器，调用 changeWait 函数并传入 "twenty" 参数
+$('#twenty').click(()=>{changeWait("twenty")})
+// 给具有 id 为 check 的元素添加 change 事件监听器，调用 changeState 函数
+$("#check").change(changeState)
+// 给具有 id 为 logout 的元素添加点击事件监听器，调用 logout 函数
+$("#logout").click(logout)
+
 </script>
 {% endblock%}
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-    <title>Dashboard</title>
+    <title>列表</title>
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -47,8 +47,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="btn-group" role="group">
-                                            <a type="button" class="btn btn-outline-primary" href="/map?highlight={{cafeteria.id}}">地图显示</a>
-                                            <a type="button" class="btn btn-outline-success" onClick="login('{{cafeteria.id}}')">员工界面</a>
+                                            
+                                            <a type="button" class="btn btn-outline-primary" href="/map?highlight={{cafeteria.id}}">在地图上显示</a>
+<!--                                             <a type="button" class="btn btn-outline-success" onClick="login('{{cafeteria.id}}')">员工界面</a> -->
                                           </div>
                                     </div>
                                 </div>

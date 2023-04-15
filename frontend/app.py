@@ -315,9 +315,6 @@ def workerlogin():
 
 @app.route("/JoininPage",methods=['GET','POST'])
 def Join():
-    global token
-    if token != "":
-        return redirect("/home")
     # 创建餐厅对象列表
     cafeteria = create_object()
     
@@ -325,15 +322,33 @@ def Join():
 
 @app.route("/Test",methods=['GET','POST'])
 def Test():
-    global token
-    if token != "":
-        return redirect("/home")
+
+
     # 创建餐厅对象列表
     cafeteria = create_object()
 
     
     return make_response(render_template("test.html"))
 
+
+
+# 从餐厅的 ID 渲染工作页面
+@app.route("/user")
+def user():
+    cafeteria = create_object()
+    return make_response(render_template("user.html", cafeterias = cafeteria))
+
+""" @app.route("/workerlogin",methods=['GET','POST'])
+def workerlogin():
+    global token
+    if token != "":
+        return redirect("/home")
+    # 创建餐厅对象列表
+    cafeteria = create_object()
+    if 'messages' in request.args:
+        return make_response(render_template("login.html", cafeterias = cafeteria, failed = True))
+    return make_response(render_template("login.html", cafeterias = cafeteria, failed = False))
+ """
 
 
 if __name__ == '__main__':
