@@ -87,7 +87,7 @@ function addMarker(cafeterias) {
             unhighlight(advancedMarkerView);
         }); */
         advancedMarkerView.addListener("click", (event) => {
-            window.location.href = "/user";
+            window.location.href = `/user`;
         });
         
         markers.push(advancedMarkerView)
