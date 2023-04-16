@@ -17,11 +17,11 @@ proxy = "http://127.0.0.1:8080"
 # 存储登录的 token
 token = ""
 cafeteria_id = None
+""" 
 # 从后端获取数据，从中创建自助餐厅对象列表 
  # return：餐厅对象列表 
 # 从后端获取数据，创建自助餐厅对象列表
 # 返回值：餐厅对象列表
-###########################################
 #导入必要的依赖库，包括Flask、json、requests等。
 # 创建一个Flask应用实例，该应用实例是Python Flask Web应用程序的基础。
 # 初始化应用的密钥，用于加密会话数据。
@@ -32,7 +32,7 @@ cafeteria_id = None
 # 将JSON字符串解析为字典列表，遍历字典列表，根据字典创建自助餐厅对象，并添加到列表中。
 # 返回餐厅对象列表。
 # 运行逻辑为：当Flask应用程序启动后，会调用create_object()函数从后端API获取自助餐厅信息，并创建自助餐厅对象列表。然后，应用程序会根据请求的URL，调用相应的函数，渲染HTML模板或返回JSON数据。在此过程中，应用程序还可以处理HTTP请求和响应，以及与后端API进行通信。
-############################################
+ """
 def create_object():
     try:
         # 获取自助餐厅信息的响应
@@ -46,28 +46,29 @@ def create_object():
     for c_dict in dict_list:
         cafeterias.append(Cafeteria(c_dict))
     return cafeterias
-#、
 
 
-############################################
-#这段代码定义了一个函数create_object()，
-# 它的作用是从后端API获取自助餐厅信息，
-# 将信息转换为字典列表，并创建自助餐厅对象列表。
-#首先，在try-except语句块中，
-# 发送一个GET请求到后端API地址（proxy+"/location"），
-# 获取自助餐厅信息的响应。如果请求失败，则返回一个空列表"[]"。
-#接着，将JSON字符串解析为字典列表，
-# 使用json.loads()方法将response转换为字典列表dict_list。
-#然后，创建一个空列表cafeterias，
-# 用于存储创建的自助餐厅对象。
-# 使用for循环遍历字典列表dict_list，
-# 对于每个字典，创建一个Cafeteria对象，将其添加到cafeterias列表中。
-#最后，输出打印cafeterias列表，并将其作为函数的返回值。
-#该函数的运行逻辑为：当该函数被调用时，它将从后端API获取自助餐厅信息，
-# 将其转换为字典列表，创建自助餐厅对象列表，并输出打印该列表。
-# 最后，将自助餐厅对象列表作为函数的返回值，供其他函数使用。
-# 如果无法从后端API获取自助餐厅信息，则返回一个空列表。
-############################################
+
+
+""" 
+这段代码定义了一个函数create_object()，
+它的作用是从后端API获取自助餐厅信息，
+将信息转换为字典列表，并创建自助餐厅对象列表。
+首先，在try-except语句块中，
+发送一个GET请求到后端API地址（proxy+"/location"），
+获取自助餐厅信息的响应。如果请求失败，则返回一个空列表"[]"。
+接着，将JSON字符串解析为字典列表，
+使用json.loads()方法将response转换为字典列表dict_list。
+然后，创建一个空列表cafeterias，
+用于存储创建的自助餐厅对象。
+使用for循环遍历字典列表dict_list，
+对于每个字典，创建一个Cafeteria对象，将其添加到cafeterias列表中。
+最后，输出打印cafeterias列表，并将其作为函数的返回值。
+该函数的运行逻辑为：当该函数被调用时，它将从后端API获取自助餐厅信息，
+将其转换为字典列表，创建自助餐厅对象列表，并输出打印该列表。
+最后，将自助餐厅对象列表作为函数的返回值，供其他函数使用。
+如果无法从后端API获取自助餐厅信息，则返回一个空列表。
+ """
 
 # 重定向到地图页面
 @app.route("/")
@@ -84,22 +85,26 @@ def map():
     # 允许跨域访问
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-############################################
-#这段代码定义了两个路由函数，分别为 "/" 和 "/map"，具体运行逻辑如下：
-# "/" 路由函数：该函数通过 redirect 函数将请求重定向到 "/map" 路由函数处理。
-# "/map" 路由函数：该函数处理地图页面的请求。
-# 如果收到 POST 请求，则返回包含在请求中的参数（如表单数据）；
-# 否则，返回地图页面的 HTML 模板。
-# 在处理 GET 请求时，函数首先通过 request.args.get() 获取 URL 中的 highlight 参数，
-# 并将其转换为整数。如果 highlight 参数不存在或无效，
-# 则将 centerIndex 的值设置为 -1。
-# 接下来，函数使用 render_template() 渲染地图页面的 HTML 模板，并将其返回。
-# 在返回之前，函数使用 make_response() 函数将 HTML 模板包装成一个响应对象，
-# 该响应对象包含 "Access-Control-Allow-Origin" 响应头，以允许跨域访问。
-# 总之，该函数主要的功能是渲染地图页面的 HTML 模板，
-# 并将其作为响应对象返回给客户端。
-# 如果请求中包含参数，则将其作为响应的一部分返回。
-############################################
+
+
+
+""" 
+这段代码定义了两个路由函数，分别为 "/" 和 "/map"，具体运行逻辑如下：
+ "/" 路由函数：该函数通过 redirect 函数将请求重定向到 "/map" 路由函数处理。
+ "/map" 路由函数：该函数处理地图页面的请求。
+ 如果收到 POST 请求，则返回包含在请求中的参数（如表单数据）；
+ 否则，返回地图页面的 HTML 模板。
+ 在处理 GET 请求时，函数首先通过 request.args.get() 获取 URL 中的 highlight 参数，
+ 并将其转换为整数。如果 highlight 参数不存在或无效，
+ 则将 centerIndex 的值设置为 -1。
+ 接下来，函数使用 render_template() 渲染地图页面的 HTML 模板，并将其返回。
+ 在返回之前，函数使用 make_response() 函数将 HTML 模板包装成一个响应对象，
+ 该响应对象包含 "Access-Control-Allow-Origin" 响应头，以允许跨域访问。
+ 总之，该函数主要的功能是渲染地图页面的 HTML 模板，
+ 并将其作为响应对象返回给客户端。
+ 如果请求中包含参数，则将其作为响应的一部分返回。
+ """
+
 
 # 处理餐厅对象列表，将它们分类成 dict，然后用 dict 渲染 dashboard 页面
 @app.route("/dashboard",methods=['GET','POST'])
@@ -125,16 +130,17 @@ def table():
     }
     return make_response(render_template("dashboard.html", type_dict = type_dict))
 
-############################################
-#这段代码定义了一个Flask路由，用于在页面上呈现自助餐厅数据的dashboard。
-# 首先，代码调用create_object()函数，
-# 该函数从后端API获取自助餐厅信息并返回一个自助餐厅对象列表。
-# 然后，代码对自助餐厅对象列表进行分类，
-# 将咖啡厅、食堂和快餐店分别存储到列表cafes、dinings和fasts中。
-# 接下来，代码创建一个字典type_dict，将分类结果存储到其中，以便在页面上呈现数据。
-# 最后，代码使用Flask的render_template()方法将type_dict作为参数传递给dashboard.html文件，该文件用于呈现自助餐厅数据的表格。
-# 代码最终使用Flask的make_response()方法将渲染后的HTML页面作为响应返回。
-############################################
+
+""" 
+这段代码定义了一个Flask路由，用于在页面上呈现自助餐厅数据的dashboard。
+首先，代码调用create_object()函数，
+该函数从后端API获取自助餐厅信息并返回一个自助餐厅对象列表。
+然后，代码对自助餐厅对象列表进行分类，
+将咖啡厅、食堂和快餐店分别存储到列表cafes、dinings和fasts中。
+接下来，代码创建一个字典type_dict，将分类结果存储到其中，以便在页面上呈现数据。
+最后，代码使用Flask的render_template()方法将type_dict作为参数传递给dashboard.html文件，该文件用于呈现自助餐厅数据的表格。
+代码最终使用Flask的make_response()方法将渲染后的HTML页面作为响应返回。
+ """
 
 
 # 从餐厅的 ID 渲染工作页面
@@ -257,22 +263,22 @@ def highlight():
 # 用于将路由/login与login()函数绑定
 # 当应用程序接收到POST请求并且路由与/login匹配时
 # 就会调用login()函数进行处理。
-@app.route('/login',methods = ['POST'])  # 将路由'/login'与login()函数绑定，当接收到POST请求并且路由与'/login'匹配时，调用login()函数进行处理。
+@app.route('/login',methods = ['POST'])  # 定义路由'/login'，请求方法为POST
 def login():
-    global token
-    global cafeteria_id
-    body = request.form
-    url = proxy+ "/login"
+    global token  # 声明全局变量token
+    global cafeteria_id  # 声明全局变量cafeteria_id
+    body = request.form  # 获取请求中的表单数据
+    url = proxy+ "/login"  # 设置API的URL
     headers = {
-        'Accept': 'application/json',
+        'Accept': 'application/json',  # 设置请求头
         'Content-Type': 'application/json'
         }
-    response = requests.post(url=url, headers=headers, json=body)
-    if response.status_code != 200:
-        return redirect(url_for(".workerlogin", messages = json.dumps({"main":"Login failed on page baz"})))
-    token = response.json()['token']
-    cafeteria_id = body['id']
-    return redirect(f"/home")
+    response = requests.post(url=url, headers=headers, json=body)  # 向API发送POST请求，携带请求头和表单数据
+    if response.status_code != 200:  # 如果响应状态码不是200
+        return redirect(url_for(".workerlogin", messages = json.dumps({"main":"Login failed on page baz"})))  # 重定向到登录页面，传递错误信息
+    token = response.json()['token']  # 从API的响应中获取token并赋值给全局变量token
+    cafeteria_id = body['id']  # 从请求中获取餐厅ID并赋值给全局变量cafeteria_id
+    return redirect(f"/home")  # 重定向到主页
 
 # 用于登出的API路由
 @app.route('/logout')
