@@ -259,10 +259,15 @@ def highlight():
 
 
 
-#@app.route('/login',methods = ['POST'])是一个装饰器语法
-# 用于将路由/login与login()函数绑定
-# 当应用程序接收到POST请求并且路由与/login匹配时
-# 就会调用login()函数进行处理。
+"""
+ @app.route('/login',methods = ['POST'])是一个装饰器语法
+用于将路由/login与login()函数绑定
+当应用程序接收到POST请求并且路由与/login匹配时
+就会调用login()函数进行处理。
+ """
+
+
+
 @app.route('/login',methods = ['POST'])  # 定义路由'/login'，请求方法为POST
 def login():
     global token  # 声明全局变量token
@@ -319,12 +324,36 @@ def workerlogin():
         return make_response(render_template("login.html", cafeterias = cafeteria, failed = True))
     return make_response(render_template("login.html", cafeterias = cafeteria, failed = False))
 
+
+
+
 @app.route("/JoininPage",methods=['GET','POST'])
 def Join():
     # 创建餐厅对象列表
     cafeteria = create_object()
     
-    return make_response(render_template("joinin.html", cafeterias = cafeteria, failed = False))
+    return make_response(render_template("joinin.html", cafeterias = cafeteria))
+
+
+
+
+@app.route("/JoininPage+",methods=['GET','POST'])
+def Plus():
+    # 创建餐厅对象列表
+    cafeteria = create_object()
+    
+    
+    new_info = request.form
+    to_add = json.dumps(new_info)
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        }
+    url = proxy+"/plus"
+    response = requests.post(url=url, headers=headers, data=to_add)
+    return ''
+
+
 
 @app.route("/Test",methods=['GET','POST'])
 def Test():
@@ -343,6 +372,11 @@ def Test():
 def user():
     cafeteria = create_object()
     return make_response(render_template("user.html", cafeterias = cafeteria))
+
+@app.route("/Try")
+def try1():
+    cafeteria = create_object()
+    return make_response(render_template("try.html", cafeterias = cafeteria))
 
 """ @app.route("/workerlogin",methods=['GET','POST'])
 def workerlogin():

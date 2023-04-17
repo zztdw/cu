@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Try</title>
+{% endblock %}
+
+
+
+
+
+{% block body %}
+<script>
+const form = document.getElementById('form1');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // 阻止表单提交默认行为
+    const formData = new FormData(form); // 获取表单数据
+    const data = Object.fromEntries(formData.entries()); // 将FormData对象转换为普通对象
+    console.log(data); // 打印表单数据
+});
+</script>
+{% endblock %}
+

@@ -82,14 +82,11 @@ function addMarker(cafeterias) {
             });
         });
         //添加事件监听器：当点击标记时，将跳转到餐厅的界面
-/*         advancedMarkerView.addListener("click", (event) => {
+        advancedMarkerView.addListener("click", (event) => {
             window.location.href = "/user";
             unhighlight(advancedMarkerView);
-        }); */
-        advancedMarkerView.addListener("click", (event) => {
-            window.location.href = `/user`;
         });
-        
+
         markers.push(advancedMarkerView)
     }
 }

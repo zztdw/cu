@@ -100,6 +100,7 @@ def update_cafeteria(cafeteria):
     cafeteria.coords_lon = updated_info['coords_lon']
     # 更新餐厅对象的类型
     cafeteria.type = updated_info['type']
+    cafeteria.tele = updated_info['tele']
     # 试图提交更改到数据库中
     try:
         session.commit()
@@ -117,3 +118,36 @@ def update_cafeteria(cafeteria):
 #更新完自助餐厅对象的属性之后，路由函数会将其写回到数据库中，并返回一个 HTTP 状态码为 201 的响应，表示更新成功。
 # 如果写入数据库失败，则返回一个 HTTP 状态码为 403 的错误响应，表示更新失败。
 # 最终，客户端会收到一个 JSON 格式的响应，包含一个键为 message 的字段，用于指示更新操作的结果。
+
+
+@app.route('/plus', methods=["POST"])
+# 在路由函数之前定义的装饰器，用于对函数进行认证和授权
+def Plus():
+    
+    # 从请求中获取JSON数据并解析成Python对象
+    new_info = json.loads(request.json)
+    # 创建新的餐厅对象并赋值
+    new_cafeteria = Cafeteria(
+        new_id = new_cafeteria.id,
+        name=new_info['name'],
+        address=new_info['address'],
+        hours_open=new_info['hours_open'],
+        hours_closed=new_info['hours_closed'],
+        status=new_info['status'],
+        wait_times=new_info['wait_times'],
+        coords_lat=new_info['coords_lat'],
+        coords_lon=new_info['coords_lon'],
+        type=new_info['type'],
+        tele=new_info['tele'],
+    )
+    # 将新的餐厅对象添加到数据库中
+    session.add(new_cafeteria)
+    # 试图提交更改到数据库中
+    try:
+        session.commit()
+    # 如果提交更改失败，则返回错误的HTTP响应状态码
+    except:
+        return make_response(jsonify({'message': "Change failed."}), 403)
+    # 如果提交更改成功，则返回成功的HTTP响应状态码
+    return make_response(jsonify({'message': "Change successfully."}), 201)
+ 
