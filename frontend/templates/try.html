@@ -1,22 +1,333 @@
 {% extends 'base.html' %}
 {% block head %}
-    <title>Try</title>
+    <title>加入我们</title>
 {% endblock %}
-
-
-
-
 
 {% block body %}
-<script>
-const form = document.getElementById('form1');
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-layer Questionnaire</title>
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault(); // 阻止表单提交默认行为
-    const formData = new FormData(form); // 获取表单数据
-    const data = Object.fromEntries(formData.entries()); // 将FormData对象转换为普通对象
-    console.log(data); // 打印表单数据
+</head>
+<body>
+
+    <div class="container">
+        <div class="mb-2">
+          </div>
+          <style>
+            h1 {
+                color: rgb(183, 183, 183);
+            }
+            .hidden {
+                display: none;
+            }
+        </style>
+        <h1>加入我们</h1>
+        
+        <!-- 第一个表单 -->
+        <form id="form1" class="form" action="/JoininPage+" method="POST">
+            <div class="form-group">
+                <style>
+                    .fa-hotel-inverse {
+                      filter: invert(100%);
+                    }
+                    </style>
+                    <style>
+                    hr.my-3.w-100 {
+                        border-width: 6px;
+                        color: rgb(0, 0, 0);
+                      }
+                    </style>
+                    <hr class="my-3 w-100">
+                    <div class="mb-3">
+                    </div>
+                <label for=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-fill" viewBox="0 0 16 16">
+                    <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H3Zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5Z"/>
+                  </svg>  门店种类:</label>
+                <div class="mb-3">
+                </div>
+                <select class="form-control" id="type" name="type">
+                  <option selected>点此选择</option>
+                    <option value="Dining">饭店/食堂<i class="fas fa-star" style="display: inline-block; margin-left: 151px;"></i></option>
+                    <option value="Fast Food">快餐</option>
+                    <option value="Cafe">饮品店</option>
+                </select>
+                <div class="mb-3">
+                </div>
+            </div>
+            <button type="button" id="btn1" class="btn btn-primary">下一步</button>
+        </form>
+
+        <!-- 第二个表单 -->
+        <form id="form2" class="form hidden" action="/JoininPage+" method="POST">
+            <div class="form-group">
+                <div class="mb-3">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
+                      <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"/>
+                    </svg>  餐厅名称：</label>
+                    <div class="mb-1">
+                    </div>
+                    <input type="text" class="form-control" id="name" name="name">
+                  </div>
+            </div>
+            <div class="mb-3">
+            </div>
+            <button type="button" id="btn4" class="btn btn-primary">下一步</button>
+        </form>
+         <!-- 第三个表单 -->
+         <form id="form3" class="form hidden" action="/JoininPage+" method="POST">
+          <div class="form-group">
+              <div class="mb-3">
+              </div>
+              <div class="mb-3">
+                  <label for="coords_lat" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                    </svg>  餐厅经度：</label>
+                  <div class="mb-1">
+                  </div>
+                  <input type="text" class="form-control" id="coords_lat" name="coords_lat">
+                </div>
+          </div>
+          <div class="mb-3">
+          </div>
+          <button type="button" id="btn2" class="btn btn-primary">下一步</button>
+          <a type="button" class="btn btn-outline-success"  onclick="window.open('https://www.google.com/maps/@37.4710102,121.4465303,15.16z?hl=zh-CN')">不知道经纬度？</button>
+              ：点击跳转Google Map获取 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+              </svg></a>
+      </form>
+        <!-- 第四个表单 -->
+        <form id="form4" class="form hidden" action="/JoininPage+" method="POST">
+          <div class="form-group">
+              <div class="mb-3">
+              </div>
+              <div class="mb-3">
+                  <label for="coords_lon" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                    </svg>  餐厅纬度：</label>
+                  <div class="mb-1">
+                  </div>
+                  <input type="text" class="form-control" id="coords_lon" name="coords_lon">
+                </div>
+          </div>
+          <div class="mb-3">
+          </div>
+          <button type="button" id="btn3" class="btn btn-primary">下一步</button>
+      </form>
+ 
+       <!-- 第五个表单 -->
+       <form id="form5" class="form hidden" action="/JoininPage+" method="POST">
+        <div class="form-group">
+            <div class="mb-3">
+            </div>
+            <div class="mb-3">
+                <label for="hours_open" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                  <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                </svg>  开门时间：</label>
+                <div class="mb-1">
+                </div>
+                <input type="text" class="form-control" id="hours_open" name="hours_open"placeholder="00:00:00">
+              </div>
+        </div>
+        <div class="mb-3">
+        </div>
+        <button type="button" id="btn5" class="btn btn-primary">下一步</button>
+    </form>
+
+    <!-- 第六个表单 -->
+    <form id="form6" class="form hidden" action="/JoininPage+" method="POST">
+      <div class="form-group">
+          <div class="mb-3">
+          </div>
+          <div class="mb-3">
+              <label for="hours_closed" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed-fill" viewBox="0 0 16 16">
+                <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+              </svg>  关门时间：</label>
+              <div class="mb-1">
+              </div>
+              <input type="text" class="form-control" id="hours_closed" name="hours_closed" placeholder="00:00:00">
+            </div>
+      </div>
+      <div class="mb-3">
+      </div>
+      <button type="button" id="btn6" class="btn btn-primary">下一步</button>
+  </form>
+
+  <!-- 第七个表单 -->
+  <form id="form7" class="form hidden" action="/JoininPage+" method="POST">
+    <div class="form-group">
+        <div class="mb-3">
+        </div>
+        <div class="mb-3">
+            <label for="tele" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+            </svg>  联系电话：</label>
+            <div class="mb-1">
+            </div>
+            <input type="text" class="form-control" id="tele" name="tele" placeholder="">
+          </div>
+    </div>
+    <div class="mb-3">
+    </div>
+    <button type="button" id="btn7" class="btn btn-primary">下一步</button>
+</form>
+<!-- 第八个表单 -->
+<form id="form8" class="form hidden" action="/JoininPage+" method="POST">
+  <div class="form-group">
+      <div class="mb-3">
+      </div>
+      <div class="mb-3">
+          <label for="password" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fingerprint" viewBox="0 0 16 16">
+            <path d="M8.06 6.5a.5.5 0 0 1 .5.5v.776a11.5 11.5 0 0 1-.552 3.519l-1.331 4.14a.5.5 0 0 1-.952-.305l1.33-4.141a10.5 10.5 0 0 0 .504-3.213V7a.5.5 0 0 1 .5-.5Z"/>
+            <path d="M6.06 7a2 2 0 1 1 4 0 .5.5 0 1 1-1 0 1 1 0 1 0-2 0v.332c0 .409-.022.816-.066 1.221A.5.5 0 0 1 6 8.447c.04-.37.06-.742.06-1.115V7Zm3.509 1a.5.5 0 0 1 .487.513 11.5 11.5 0 0 1-.587 3.339l-1.266 3.8a.5.5 0 0 1-.949-.317l1.267-3.8a10.5 10.5 0 0 0 .535-3.048A.5.5 0 0 1 9.569 8Zm-3.356 2.115a.5.5 0 0 1 .33.626L5.24 14.939a.5.5 0 1 1-.955-.296l1.303-4.199a.5.5 0 0 1 .625-.329Z"/>
+            <path d="M4.759 5.833A3.501 3.501 0 0 1 11.559 7a.5.5 0 0 1-1 0 2.5 2.5 0 0 0-4.857-.833.5.5 0 1 1-.943-.334Zm.3 1.67a.5.5 0 0 1 .449.546 10.72 10.72 0 0 1-.4 2.031l-1.222 4.072a.5.5 0 1 1-.958-.287L4.15 9.793a9.72 9.72 0 0 0 .363-1.842.5.5 0 0 1 .546-.449Zm6 .647a.5.5 0 0 1 .5.5c0 1.28-.213 2.552-.632 3.762l-1.09 3.145a.5.5 0 0 1-.944-.327l1.089-3.145c.382-1.105.578-2.266.578-3.435a.5.5 0 0 1 .5-.5Z"/>
+            <path d="M3.902 4.222a4.996 4.996 0 0 1 5.202-2.113.5.5 0 0 1-.208.979 3.996 3.996 0 0 0-4.163 1.69.5.5 0 0 1-.831-.556Zm6.72-.955a.5.5 0 0 1 .705-.052A4.99 4.99 0 0 1 13.059 7v1.5a.5.5 0 1 1-1 0V7a3.99 3.99 0 0 0-1.386-3.028.5.5 0 0 1-.051-.705ZM3.68 5.842a.5.5 0 0 1 .422.568c-.029.192-.044.39-.044.59 0 .71-.1 1.417-.298 2.1l-1.14 3.923a.5.5 0 1 1-.96-.279L2.8 8.821A6.531 6.531 0 0 0 3.058 7c0-.25.019-.496.054-.736a.5.5 0 0 1 .568-.422Zm8.882 3.66a.5.5 0 0 1 .456.54c-.084 1-.298 1.986-.64 2.934l-.744 2.068a.5.5 0 0 1-.941-.338l.745-2.07a10.51 10.51 0 0 0 .584-2.678.5.5 0 0 1 .54-.456Z"/>
+            <path d="M4.81 1.37A6.5 6.5 0 0 1 14.56 7a.5.5 0 1 1-1 0 5.5 5.5 0 0 0-8.25-4.765.5.5 0 0 1-.5-.865Zm-.89 1.257a.5.5 0 0 1 .04.706A5.478 5.478 0 0 0 2.56 7a.5.5 0 0 1-1 0c0-1.664.626-3.184 1.655-4.333a.5.5 0 0 1 .706-.04ZM1.915 8.02a.5.5 0 0 1 .346.616l-.779 2.767a.5.5 0 1 1-.962-.27l.778-2.767a.5.5 0 0 1 .617-.346Zm12.15.481a.5.5 0 0 1 .49.51c-.03 1.499-.161 3.025-.727 4.533l-.07.187a.5.5 0 0 1-.936-.351l.07-.187c.506-1.35.634-2.74.663-4.202a.5.5 0 0 1 .51-.49Z"/>
+          </svg>  餐厅密码：</label>
+          <div class="mb-1">
+          </div>
+          <input type="text" class="form-control" id="password" name="password"placeholder="">
+        </div>
+  </div>
+  <div class="mb-3">
+  </div>
+  <button type="submit" id="btn8" class="btn btn-primary">提交</button>
+</form>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // 获取表单和按钮元素
+        const form1 = document.querySelector('#form1');
+        const form2 = document.querySelector('#form2');
+        const form3 = document.querySelector('#form3');
+        const form4 = document.querySelector('#form4');
+        const form5 = document.querySelector('#form5');
+        const form6 = document.querySelector('#form6');
+        const form7 = document.querySelector('#form7');
+        const form8 = document.querySelector('#form8');
+
+        const btn1 = document.querySelector('#btn1');
+        const btn2 = document.querySelector('#btn2');
+        const btn3 = document.querySelector('#btn3');
+        const btn4 = document.querySelector('#btn4');
+        const btn5 = document.querySelector('#btn5');
+        const btn6 = document.querySelector('#btn6');
+        const btn7 = document.querySelector('#btn7');
+        const btn8 = document.querySelector('#btn8');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        // 隐藏第二个表单
+        form2.classList.add('hidden');
+
+        // 绑定第一个按钮的点击事件
+        document.getElementById("btn1").addEventListener("click", function() {
+  var input = document.getElementById("type").value;
+  if (input === "点此选择") {
+    alert("请选择餐厅类型！");
+    return false;
+  } else {
+    form2.classList.remove('hidden');
+  }
 });
-</script>
-{% endblock %}
+        /* btn1.addEventListener('click', function() {
+            
+                form2.classList.remove('hidden');
 
+        }); */
+
+        document.getElementById("btn2").addEventListener("click", function() {
+  var input = document.getElementById("coords_lat").value;
+  if (input === "") {
+    alert("请输入经度！");
+    return false;
+  } else {
+    form4.classList.remove('hidden');
+  }
+});
+        document.getElementById("btn4").addEventListener("click", function() {
+  var input = document.getElementById("name").value;
+  if (input === "") {
+    alert("请输入餐厅名称！");
+    return false;
+  } else {
+    form3.classList.remove('hidden');
+  }
+});
+document.getElementById("btn3").addEventListener("click", function() {
+  var input = document.getElementById("coords_lon").value;
+  if (input === "") {
+    alert("请输入纬度！");
+    return false;
+  } else {
+    form5.classList.remove('hidden');
+  }
+});
+document.getElementById("btn5").addEventListener("click", function() {
+  var input = document.getElementById("hours_open").value;
+  if (input === "") {
+    alert("请输入时间！");
+    return false;
+  } else {
+    form6.classList.remove('hidden');
+  }
+});
+document.getElementById("btn6").addEventListener("click", function() {
+  var input = document.getElementById("hours_closed").value;
+  if (input === "") {
+    alert("请输入时间！");
+    return false;
+  } else {
+    form7.classList.remove('hidden');
+  }
+});
+document.getElementById("btn7").addEventListener("click", function() {
+  var input = document.getElementById("tele").value;
+  if (input === "") {
+    alert("请输入联系电话！");
+    return false;
+  } else {
+    form8.classList.remove('hidden');
+  }
+});
+
+document.getElementById("btn1").addEventListener("click", function() {
+  var formData = {
+    type: document.getElementById("type").value,
+  };
+  console.log(formData);
+});
+
+
+
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -123,12 +123,11 @@ def update_cafeteria(cafeteria):
 @app.route('/plus', methods=["POST"])
 # 在路由函数之前定义的装饰器，用于对函数进行认证和授权
 def Plus():
-    
+    new_cafeteria= None
     # 从请求中获取JSON数据并解析成Python对象
     new_info = json.loads(request.json)
     # 创建新的餐厅对象并赋值
     new_cafeteria = Cafeteria(
-        new_id = new_cafeteria.id,
         name=new_info['name'],
         address=new_info['address'],
         hours_open=new_info['hours_open'],

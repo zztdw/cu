@@ -342,9 +342,14 @@ def Plus():
     # 创建餐厅对象列表
     cafeteria = create_object()
     
-    
-    new_info = request.form
-    to_add = json.dumps(new_info)
+    a=None
+    a = request.form
+    print(a)
+    json_dict = json.dumps(a)
+    print(json_dict)
+    to_add = json.dumps(json_dict)
+    print(to_add)
+    print(to_add)
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
