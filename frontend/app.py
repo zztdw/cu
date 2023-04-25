@@ -332,7 +332,7 @@ def Join():
     # 创建餐厅对象列表
     cafeteria = create_object()
     
-    return make_response(render_template("joinin.html", cafeterias = cafeteria))
+    return make_response(render_template("joinus.html", cafeterias = cafeteria))
 
 
 

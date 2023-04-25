@@ -146,7 +146,7 @@ def Plus():
         session.commit()
     # 如果提交更改失败，则返回错误的HTTP响应状态码
     except:
-        return make_response(jsonify({'message': "Change failed."}), 403)
+        return make_response(jsonify({'message': "Database execution failed."}), 403)
     # 如果提交更改成功，则返回成功的HTTP响应状态码
-    return make_response(jsonify({'message': "Change successfully."}), 201)
+    return make_response(jsonify({'message': "Succeed."}), 201)
  
