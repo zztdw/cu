@@ -82,6 +82,14 @@ $(document).ready(function(){
         go_next();
     })
 
+    $("#coordinate").click(function () {
+        navigator.geolocation.getCurrentPosition(fillPosition);
+    })
+    function fillPosition(position){
+        $('#latitude').val(position.coords.latitude)
+        $('#longitude').val(position.coords.longitude)
+    }
+
     $('.radio-group .radio').click(function(){
         $(this).parent().find('.radio').removeClass('selected');
         $(this).addClass('selected');

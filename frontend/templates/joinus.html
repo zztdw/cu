@@ -52,24 +52,32 @@
                             <fieldset class="text-start">
                                 <h2 class="fs-title">餐厅信息</h2>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="我们通过邮箱与您取得联系，并验证您的身份。">
-                                        <i style="font-size:18px;color:rgb(144, 144, 144); margin-left:5px" class="fa">&#xf059;</i>
-                                    </span>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                    <label for="exampleInputEmail1" class="form-label">餐厅类型</label>
+                                    <select class="form-control" id="type" name="type">
+                                        <option selected>点此选择</option>
+                                        <option value="Dining">饭店/食堂<i class="fas fa-star" style="display: inline-block; margin-left: 151px;"></i></option>
+                                        <option value="Fast Food">快餐</option>
+                                        <option value="Cafe">饮品店</option>
+                                    </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="latitude" class="form-label">纬度</label>
+                                        <input type="text" class="form-control" id="latitude">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="longitude" class="form-label">经度</label>
+                                        <input type="text" class="form-control" id="longitude">
+                                    </div>
+                                    <div class="col-md-6"><input type="button" id="coordinate" class="btn btn-primary mt-3 " value="点此一键获取坐标"/></div>
+                                    
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
-                                <button type="submit" name="next" class="btn btn-primary next action-button">Next Step</button>
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                                <input type="button" name="next" class="next action-button" value="Next Step"/>
+                                <input type="button" name="previous" class="previous action-button-previous btn btn-primary" value="上一步"/>
+                                <input type="button" name="next" class="next action-button btn btn-primary" value="下一步"/>
                             </fieldset>
                         </form>
                     </div>
