@@ -25,11 +25,17 @@ $(document).ready(function(){
             duration: 600
         });
     };
-    function checkCoordinate(value) {
+    function checkLatitude(value) {
         if (isNaN(value)) {
             return false;
         }
         return value<90 && value >-90
+    }
+    function checkLongitude(value) {
+        if (isNaN(value)) {
+            return false;
+        }
+        return value<180 && value >-180
     }
     function render_review() {
         $('#email-review').html($('#email').val())
@@ -125,7 +131,7 @@ $(document).ready(function(){
         name_alert.css('display','None')
         let parsed_latitude = parseFloat(latitude.val())
         let parsed_longitude = parseFloat(longitude.val())
-        if (!(checkCoordinate(parsed_latitude)&&checkCoordinate(parsed_longitude))) {
+        if (!(checkLatitude(parsed_latitude)&&checkLongitude(parsed_longitude))) {
             coordinate_alert.css('display','block')
             return;
         }
