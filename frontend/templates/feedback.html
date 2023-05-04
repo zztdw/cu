@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>404 not found!</title>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-8 justify-content-center">
+                {% if success %}
+                    <h1 class="text-center">恭喜您!</h1>
+                    <h3>您的餐厅已经成功注册并在地图上标记，您可以通过您的餐厅名称和密码对餐厅进行管理。</h3>
+                {% else %}
+                    <h1 class="text-center">很抱歉!</h1>
+                    <h3>您的餐厅注册出现了一些问题，请联系我们的工作人员为您解决。</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

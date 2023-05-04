@@ -330,70 +330,31 @@ def workerlogin():
 @app.route("/JoininPage",methods=['GET','POST'])
 def Join():
     # 创建餐厅对象列表
-    cafeteria = create_object()
-    
-    return make_response(render_template("joinus.html", cafeterias = cafeteria))
-
-
-
-
-@app.route("/JoininPage+",methods=['GET','POST'])
-def Plus():
-    # 创建餐厅对象列表
-    cafeteria = create_object()
-    
-    a=None
-    a = request.form
-    print(a)
-    json_dict = json.dumps(a)
-    print(json_dict)
-    to_add = json.dumps(json_dict)
-    print(to_add)
-    print(to_add)
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        }
-    url = proxy+"/plus"
-    response = requests.post(url=url, headers=headers, data=to_add)
-    return ''
-
-
-
-@app.route("/Test",methods=['GET','POST'])
-def Test():
-
-
-    # 创建餐厅对象列表
-    cafeteria = create_object()
-
-    
-    return make_response(render_template("test.html"))
-
-
-
-# 从餐厅的 ID 渲染工作页面
-@app.route("/user")
-def user():
-    cafeteria = create_object()
-    return make_response(render_template("user.html", cafeterias = cafeteria))
-
-@app.route("/Try")
-def try1():
-    cafeteria = create_object()
-    return make_response(render_template("try.html", cafeterias = cafeteria))
-
-""" @app.route("/workerlogin",methods=['GET','POST'])
-def workerlogin():
-    global token
-    if token != "":
-        return redirect("/home")
-    # 创建餐厅对象列表
-    cafeteria = create_object()
-    if 'messages' in request.args:
-        return make_response(render_template("login.html", cafeterias = cafeteria, failed = True))
-    return make_response(render_template("login.html", cafeterias = cafeteria, failed = False))
- """
+    if request.method == 'GET':
+        cafeteria = create_object()
+        return make_response(render_template("joinus.html", cafeterias = cafeteria))
+    if request.method == 'POST':
+        form = dict(request.form)
+        form['hours_open'] = form['hours_open']+":00"
+        form['hours_closed'] = form['hours_closed']+":00"
+        form['coords_lat'] = form['latitude']
+        form['coords_lon'] = form['longitude']
+        form.pop('latitude')
+        form.pop('longitude')
+        form['status'] = 'Closed'
+        form['wait_times'] = '< 5 min'
+        to_update = json.dumps(form)
+        print(to_update)
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            }
+        url = proxy+"/create"
+        response = requests.put(url=url,headers=headers,json=to_update)
+        if response.status_code == 403:
+            return render_template('feedback.html', success=False)
+        else:
+            return render_template('feedback.html', success=True)
 
 
 if __name__ == '__main__':

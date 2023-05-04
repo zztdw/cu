@@ -25,6 +25,23 @@ $(document).ready(function(){
             duration: 600
         });
     };
+    function checkCoordinate(value) {
+        if (isNaN(value)) {
+            return false;
+        }
+        return value<90 && value >-90
+    }
+    function render_review() {
+        $('#email-review').html($('#email').val())
+        $('#type-review').html($('#type').val())
+        $('#name-review').html($('#name').val())
+        $('#latitude-review').html($('#latitude').val())
+        $('#longitude-review').html($('#longitude').val())
+        $('#address-review').html($('#address').val())
+        $('#time-review').html($('#hours_open').val()+"-"+$('#hours_closed').val())
+        $('#tele-review').html($('#tele').val())
+
+    }
     
     $(".previous").click(function(){
         
@@ -76,6 +93,56 @@ $(document).ready(function(){
             return;
         }
         password_alert.css('display','None')
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+        
+        go_next();
+    })
+
+    $("#cafeteria-submit").click(function () {
+        let type = $("#type");
+        let name = $("#name")
+        let latitude = $("#latitude")
+        let longitude = $("#longitude")
+        let address = $("#address")
+        let tele = $("#tele")
+        let type_alert = $("#type-alert")
+        let name_alert = $("#name-alert")
+        let coordinate_alert = $("#coordinate-alert")
+        let address_alert = $("#address-alert")
+        let tele_alert = $("#tele-alert")
+
+        console.log(1)
+        if(type.val()=="None"){
+            type_alert.css('display','block')
+            return; 
+        }
+        type_alert.css('display','None')
+        if (name.val()=="") {
+            name_alert.css('display','block')
+            return;
+        }
+        name_alert.css('display','None')
+        let parsed_latitude = parseFloat(latitude.val())
+        let parsed_longitude = parseFloat(longitude.val())
+        if (!(checkCoordinate(parsed_latitude)&&checkCoordinate(parsed_longitude))) {
+            coordinate_alert.css('display','block')
+            return;
+        }
+        coordinate_alert.css('display','None')
+        if (address.val()=="") {
+            address_alert.css('display','block')
+            return;
+        }
+        address_alert.css('display','None')
+        if (tele.val()=="") {
+            tele_alert.css('display','block')
+            return;
+        }
+        tele_alert.css('display','None')
+
+        render_review();
+
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
         

@@ -120,7 +120,7 @@ def update_cafeteria(cafeteria):
 # 最终，客户端会收到一个 JSON 格式的响应，包含一个键为 message 的字段，用于指示更新操作的结果。
 
 
-@app.route('/plus', methods=["POST"])
+@app.route('/create', methods=["PUT"])
 # 在路由函数之前定义的装饰器，用于对函数进行认证和授权
 def Plus():
     new_cafeteria= None
@@ -138,6 +138,7 @@ def Plus():
         coords_lon=new_info['coords_lon'],
         type=new_info['type'],
         tele=new_info['tele'],
+        password=new_info['password']
     )
     # 将新的餐厅对象添加到数据库中
     session.add(new_cafeteria)
